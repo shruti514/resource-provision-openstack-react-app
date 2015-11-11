@@ -5,9 +5,4 @@
     - In first terminal do --> gulp
     - In second terminal do -->  npm run watch
     - access application on http://localhost:3000/create
-    - 
-For Windows Users:
-    - Go to C:\Users\$username
-    - Open .gitconfig file
-    - Add git config --global url."https://".insteadOf git://
-    - Save and Close the file
+
