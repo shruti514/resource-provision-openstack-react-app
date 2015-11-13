@@ -76,6 +76,7 @@ class CreateVM extends React.Component {
                         <h1>Images:</h1>
                         <div>
                             {images}
+
                         </div>
                     </div>
                     <div>
@@ -85,7 +86,7 @@ class CreateVM extends React.Component {
                         </div>
                     </div>
                 </div>
-                <button type='submit'>Submit</button>
+                <button type='submit' bsStyle='Primary'>Submit</button>
             </form>
         );
     }
