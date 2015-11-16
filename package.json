@@ -16,7 +16,9 @@
     "body-parser": "^1.14.1",
     "colors": "^1.1.2",
     "compression": "^1.6.0",
+    "connect-flash": "*",
     "express": "^4.13.3",
+    "express-session": "*",
     "history": "^1.12.5",
     "mongoose": "^4.2.4",
     "morgan": "^1.6.1",
@@ -33,6 +35,7 @@
     "xml2js": "^0.4.13",
     "passport": "*",
     "passport-http": "^0.3.0",
+    "passport-local": "*",
     "bcrypt-nodejs":"^0.0.3"
   },
   "devDependencies": {
