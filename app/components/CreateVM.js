@@ -3,6 +3,7 @@ var ReactBootStrap = require('react-bootstrap');
 var Button = ReactBootStrap.Button;
 var ButtonGroup= ReactBootStrap.ButtonGroup;
 
+
 import CreateVMStore from '../stores/CreateVMStore';
 import CreateVMActions from '../actions/CreateVMActions';
 
@@ -70,10 +71,14 @@ class CreateVM extends React.Component {
         var images = this.renderImageLists();
         var flavors = this.renderFlavoursList();
         return (
+
             <form onSubmit={this.handleSubmit.bind(this)}>
                 <div>
                     <div>
                         <h1>Images:</h1>
+                        <ButtonGroup name="sda"> sdas
+                            <Button bsStyle="primary" id="werewr" name="werwer">dasd</Button>
+                        </ButtonGroup>
                         <div>
                             {images}
                         </div>
