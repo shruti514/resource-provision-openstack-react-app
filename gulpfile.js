@@ -36,7 +36,7 @@ gulp.task('vendor', function() {
     'bower_components/toastr/toastr.js'
   ]).pipe(concat('vendor.js'))
     .pipe(gulpif(production, uglify({ mangle: false })))
-    .pipe(gulp.dest('public/js'));
+    .pipe(gulp.dest('assets/js'));
 });
 
 /*
@@ -50,7 +50,7 @@ gulp.task('browserify-vendor', function() {
     .bundle()
     .pipe(source('vendor.bundle.js'))
     .pipe(gulpif(production, streamify(uglify({ mangle: false }))))
-    .pipe(gulp.dest('public/js'));
+    .pipe(gulp.dest('assets/js'));
 });
 
 /*
@@ -65,7 +65,7 @@ gulp.task('browserify', ['browserify-vendor'], function() {
     .bundle()
     .pipe(source('bundle.js'))
     .pipe(gulpif(production, streamify(uglify({ mangle: false }))))
-    .pipe(gulp.dest('public/js'));
+    .pipe(gulp.dest('assets/js'));
 });
 
 /*
@@ -90,7 +90,7 @@ gulp.task('browserify-watch', ['browserify-vendor'], function() {
         gutil.log(gutil.colors.green('Finished rebundling in', (Date.now() - start) + 'ms.'));
       })
       .pipe(source('bundle.js'))
-      .pipe(gulp.dest('public/js/'));
+      .pipe(gulp.dest('assets/js/'));
   }
 });
 
@@ -105,7 +105,7 @@ gulp.task('styles', function() {
     .pipe(less())
     .pipe(autoprefixer())
     .pipe(gulpif(production, cssmin()))
-    .pipe(gulp.dest('public/css'));
+    .pipe(gulp.dest('assets/css'));
 });
 
 gulp.task('watch', function() {
