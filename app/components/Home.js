@@ -8,9 +8,8 @@ class Home extends React.Component {
 
             <div id="wrapper">
 
-                <!-- Navigation -->
                 <nav className="navbar navbar-inverse navbar-fixed-top" role="navigation">
-                    <!-- Brand and toggle get grouped for better mobile display -->
+
                     <div className="navbar-header">
                         <button type="button" className="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
                             <span className="sr-only">Toggle navigation</span>
@@ -20,7 +19,7 @@ class Home extends React.Component {
                         </button>
                         <a className="navbar-brand" href="home.html">Move To Cloud</a>
                     </div>
-                    <!-- Top Menu Items -->
+
                     <ul className="nav navbar-right top-nav">
                         <li classNamee="dropdown">
                             <a href="#" className="dropdown-toggle" data-toggle="dropdown"><i className="fa fa-user"></i> John Smith <b className="caret"></b></a>
@@ -35,7 +34,7 @@ class Home extends React.Component {
                             </ul>
                         </li>
                     </ul>
-                    <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+
                     <div className="collapse navbar-collapse navbar-ex1-collapse">
                         <ul className="nav navbar-nav side-nav">
                             <li className="active">
@@ -69,14 +68,14 @@ class Home extends React.Component {
                             </li>
                         </ul>
                     </div>
-                    <!-- /.navbar-collapse -->
+
                 </nav>
 
                 <div id="page-wrapper">
 
                     <div className="container-fluid">
 
-                        <!-- Page Heading -->
+
                         <div className="row">
                             <div className="col-lg-12">
                                 <h1 className="page-header">
@@ -84,7 +83,7 @@ class Home extends React.Component {
                                 </h1>
                             </div>
                         </div>
-                        <!-- /.row -->
+
 
                         <div className="row">
                             <div className="col-lg-3 col-md-6">
@@ -147,7 +146,7 @@ class Home extends React.Component {
                                     <a href="#">
                                         <div className="panel-footer">
                                             <span className="pull-left">Create Instance</span>
-                                            <span className="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                            <span className="pull-right"><i className="fa fa-arrow-circle-right"></i></span>
                                             <div className="clearfix"></div>
                                         </div>
                                     </a>
@@ -176,7 +175,7 @@ class Home extends React.Component {
                                 </div>
                             </div>N
                         </div>
-                        <!-- /.row -->
+
 
                         <div className="row">
                             <div className="col-lg-4">
@@ -269,13 +268,12 @@ class Home extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <!-- /.row -->
+
 
                     </div>
-                    <!-- /.container-fluid -->
+
 
                 </div>
-                <!-- /#page-wrapper -->
 
             </div>
 

@@ -19,11 +19,9 @@ class LoginActions{
             data: { username: username, password: password }
         })
         .done((data)=>{
-            alert('successFullLogin');
              this.actions.loginSuccess(data);
         })
         .fail((jqXhr) => {
-            alert('Login Failed');
             this.actions.loginFail(jqXhr.responseJSON.message)
         });
     }

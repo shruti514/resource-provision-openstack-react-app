@@ -19,11 +19,9 @@ class SignUpActions{
                 data: { username: username, password: password }
             })
             .done((data)=>{
-                alert('successFull registration');
                 this.actions.signUpSuccess(data);
             })
             .fail((jqXhr) => {
-                alert('Registration Failed');
                 this.actions.signUpFail(jqXhr.responseJSON.message)
             });
 
