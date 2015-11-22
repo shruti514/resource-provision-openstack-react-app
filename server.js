@@ -48,6 +48,7 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+app.post('saveVirtualMachines',virtualMachine.saveVirtualMachine);
 app.get('/departments',departments.findAll);
 app.get('/servers',nova.findAllServers);
 app.get('/flavors',nova.findAllFlavors);
