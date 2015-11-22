@@ -1,4 +1,5 @@
 - might need  ---> npm install -g babel babel-preset-react
+- might need ---> npm install -g nodemon
 - Steps
     - npm install
     - Open two terminals
