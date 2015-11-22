@@ -35,6 +35,16 @@ class Login extends React.Component {
         }
     }
 
+    showError(){
+        if(this.state.isError){
+            return (
+            <div className="alert alert-danger">
+                <strong>Failed!</strong> {this.state.errorMessage}
+            </div>
+            );
+        }
+    }
+
 
     render() {
 
@@ -61,9 +71,11 @@ class Login extends React.Component {
                             <div className="row">
                                 <div className="col-sm-6 col-sm-offset-3 form-box">
                                     <div className="form-top">
+
                                         <div className="form-top-left">
                                             <h3>Login to our site</h3>
                                             <p>Enter your username and password to log on:</p>
+                                            {this.showError()}
                                         </div>
                                         <div className="form-top-right">
                                             <i className="fa fa-key"></i>

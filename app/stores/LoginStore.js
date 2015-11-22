@@ -8,6 +8,8 @@ class LoginStore {
         this.username='';
         this.password='';
         this.isAuthenticated=false;
+        this.isError = false;
+        this.errorMessage = '';
     }
 
     onLoginSuccess(data){
@@ -16,8 +18,9 @@ class LoginStore {
 
 
     onLoginFail(errorMessage){
-        alert('Login Failed');
         console.log('Unable to login.Please try again.')
+        this.isError = true;
+        this.errorMessage = errorMessage;
     }
 
     onUpdateUsername(event){

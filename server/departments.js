@@ -10,6 +10,7 @@ var Department = require('../models/department');
 
 var findAll = (req,res,next) =>{
     Department.find(function(err,departments){
+        console.log(req.user)
         console.log("After dept call"+JSON.stringify(departments))
         res.send(departments);
     })

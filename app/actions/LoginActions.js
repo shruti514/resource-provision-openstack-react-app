@@ -19,10 +19,15 @@ class LoginActions{
             data: { username: username, password: password }
         })
         .done((data)=>{
+           // alert('login successfull');
              this.actions.loginSuccess(data);
         })
         .fail((jqXhr) => {
-            this.actions.loginFail(jqXhr.responseJSON.message)
+            var errorMessage = jqXhr.responseJSON.message;
+            if(""==errorMessage){
+                errorMessage = "Please enter correct username and password.";
+            }
+            this.actions.loginFail(errorMessage)
         });
     }
 }
