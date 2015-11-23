@@ -5,6 +5,7 @@ import Home from './components/Home';
 import CreateVM from './components/CreateVM';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
+import Charts from './components/Charts';
 
 
 export default (
@@ -13,5 +14,6 @@ export default (
     <Route path='/create' component={CreateVM} />
     <Route path='/login' component={Login}/>
     <Route path='/signup' component={SignUp}/>
+    <Route path='/charts' component={Charts}/>
   </Route>
 );

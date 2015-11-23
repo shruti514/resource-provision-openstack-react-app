@@ -21,12 +21,12 @@ var findAllServers = (req,res,next) =>{
                 status: server.status,
                 image:server.image.id,
                 flavor:server.flavor.id
-            }
+            };
             toReturn.push(temp)
         });
         res.send(toReturn);
     })
-}
+};
 
 var findAllFlavors = (req,res,next) =>{
     client.flavors.all({async:false},function(err,flavors){
@@ -39,12 +39,12 @@ var findAllFlavors = (req,res,next) =>{
                 vcpus:flavor.vcpus,
                 disk:flavor.disk,
                 swap:flavor.swap
-            }
+            };
             toReturn.push(temp);
         });
         res.send(toReturn);
     })
-}
+};
 
 var createServer = (req,res,next)=>{
     console.log(req.body.imageId)
@@ -58,7 +58,7 @@ var createServer = (req,res,next)=>{
         metadata: {
             "My Server Name": "Apache1"
         }
-    }
+    };
 
     var new_server = client.servers.create({
         data: serverData,
@@ -67,7 +67,7 @@ var createServer = (req,res,next)=>{
 
     res.status(200).send({message:"Server created successfully!!",data:new_server});
 
-}
+};
 
 exports.findAllServers = findAllServers;
 exports.createServer = createServer;
