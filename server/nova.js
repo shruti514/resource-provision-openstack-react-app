@@ -6,7 +6,7 @@ var client = new Nova({
         debug: true
     }).authenticate({
         username: 'admin',
-        password: '058b9a27e4304b56',
+        password: '13945916bd0645e1',
         project: 'admin',
         async: false
     });
@@ -46,5 +46,29 @@ var findAllFlavors = (req,res,next) =>{
     })
 }
 
+var createServer = (req,res,next)=>{
+    console.log(req.body.imageId)
+    console.log(req.body.flavorId)
+
+    var serverData={
+        name: "new-server-test",
+        imageRef: req.body.imageId,
+        flavorRef: req.body.flavorId,
+        networks:["0d6e0cc4-1166-4ea5-8581-905c722af4e7"],
+        metadata: {
+            "My Server Name": "Apache1"
+        }
+    }
+
+    var new_server = client.servers.create({
+        data: serverData,
+        async: false
+    });
+
+    res.status(200).send({message:"Server created successfully!!",data:new_server});
+
+}
+
 exports.findAllServers = findAllServers;
+exports.createServer = createServer;
 exports.findAllFlavors = findAllFlavors;

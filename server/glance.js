@@ -7,35 +7,18 @@ var client = new Glance({
     debug: true
 }).authenticate({
     username: 'admin',
-    password: '058b9a27e4304b56',
+    password: '13945916bd0645e1',
     project: 'admin',
     async: false
 });
 
 var findAllImages = (req,res,next) =>{
-    var usingFixures = true;
-    if(usingFixures == true){
-        Stubs.getAllImages(function(err,images) {
-            var toReturn = [];
-            images.map((image, index)=> {
-                var temp = {
-                    uri: image.uri,
-                    name: image.name,
-                    disk_format: image.disk_format,
-                    size: image.size,
-                    is_public: image.is_public,
-                    min_ram: image.min_ram,
-                    min_disk: image.min_disk
-                }
-                toReturn.push(temp)
-            });
-            res.send(toReturn);
-        })
-    }else{
+
         client.images.all({async:false},function(err,images){
             var toReturn=[];
             images.map((image,index)=>{
                 var temp = {
+                    id:image.id,
                     uri:image.uri,
                     name:image.name,
                     disk_format:image.disk_format,
@@ -48,7 +31,6 @@ var findAllImages = (req,res,next) =>{
             });
             res.send(toReturn);
         })
-    }
 }
 
 exports.findAllImages = findAllImages;

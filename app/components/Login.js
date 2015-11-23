@@ -1,6 +1,6 @@
 var React = require('react');
 var LoginStore = require('../stores/LoginStore');
-var LoginAction = require('../actions/LoginActions');
+var LoginActions = require('../actions/LoginActions');
 var Home = require('./home');
 
 class Login extends React.Component {
@@ -31,7 +31,7 @@ class Login extends React.Component {
         var password = this.state.password;
 
         if (username && password) {
-            LoginAction.postLogin(username, password);
+            LoginActions.postLogin(username, password);
         }
     }
 
@@ -85,11 +85,11 @@ class Login extends React.Component {
                                         <form role="form" className="login-form" onSubmit={this.handleSubmit.bind(this)}>
                                             <div class="form-group">
                                                 <label class="sr-only" for="form-username">Username</label>
-                                                <input type="text" name="form-username" placeholder="Username..." className="form-username form-control" id="form-username" onChange={LoginAction.updateUsername}/>
+                                                <input type="text" name="form-username" placeholder="Username..." className="form-username form-control" id="form-username" onChange={LoginActions.updateUsername}/>
                                             </div>
                                             <div className="form-group">
                                                 <label className="sr-only" for="form-password">Password</label>
-                                                <input type="password" name="form-password" placeholder="Password..." className="form-password form-control" id="form-password" onChange={LoginAction.updatePassword}/>
+                                                <input type="password" name="form-password" placeholder="Password..." className="form-password form-control" id="form-password" onChange={LoginActions.updatePassword}/>
                                             </div>
                                             <button type="submit" className="btn">Sign in!</button>
                                         </form>

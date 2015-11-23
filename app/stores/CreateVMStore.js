@@ -5,18 +5,20 @@ class CreateVMStore{
 
     constructor() {
         this.bindActions(CreateVMActions);
-        this.images = '';
+        this.image = '';
         this.flavor = '';
         this.imageList=[];
         this.flavorList=[];
+        this.serverCreatedSuccessMessage=null;
+        this.failureMessage=null;
     }
 
-    onCreateVMSuccess(successMessage) {
-
+    onCreateVMSuccess(data) {
+        this.serverCreatedSuccessMessage = data.message + "  Id of new Server="+JSON.stringify(data.data);
     }
 
     onCreateVMFail(errorMessage) {
-
+        this.failureMessage=errorMessage;
     }
     onGetImagesSuccess(data) {
         this.imageList = data;
@@ -38,7 +40,7 @@ class CreateVMStore{
         this.image = event.target.value;
     }
 
-    onUpdateFlavour(event) {
+    onUpdateFlavor(event) {
         this.flavor = event.target.value;
     }
 

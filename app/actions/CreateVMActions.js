@@ -16,14 +16,15 @@ class CreateVMActions {
         );
     }
 
-    createVM(image, flavour) {
+    createVM(imageId, flavorId) {
+        //alert('Inside create VM method');
         $.ajax({
                 type: 'POST',
-                url: '/api/create',
-                data: { name: name, gender: gender }
+                url: '/servers',
+                data: { imageId: imageId, flavorId: flavorId }
             })
             .done((data) => {
-                this.actions.createVMSuccess(data.message);
+                this.actions.createVMSuccess(data);
             })
             .fail((jqXhr) => {
                 this.actions.createVMFail(jqXhr.responseJSON.message);

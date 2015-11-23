@@ -52,6 +52,7 @@ passport.deserializeUser(User.deserializeUser());
 app.get('/departments',departments.findAll);
 app.post('/save',departments.save);
 app.get('/servers',nova.findAllServers);
+app.post('/servers',nova.createServer);
 app.get('/flavors',nova.findAllFlavors);
 app.get('/images',glance.findAllImages);
 

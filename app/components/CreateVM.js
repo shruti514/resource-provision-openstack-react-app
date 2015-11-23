@@ -1,8 +1,4 @@
 var React = require('react');
-var ReactBootStrap = require('react-bootstrap');
-var Button = ReactBootStrap.Button;
-var ButtonGroup= ReactBootStrap.ButtonGroup;
-
 
 import CreateVMStore from '../stores/CreateVMStore';
 import CreateVMActions from '../actions/CreateVMActions';
@@ -32,39 +28,63 @@ class CreateVM extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
+        //alert('handle submit called');
         var image = this.state.image;
         var flavor = this.state.flavor;
         if (!image) {
-            CreateVMActions.invalidImage();
+            if(this.state.imageList.length>0){
+                image = this.state.imageList[0].id;
+            }else{
+                CreateVMActions.invalidImage();
+            }
         }
         if (!flavor) {
-            CreateVMActions.invalidFlavor();
+            if(this.state.flavorList.length>0){
+                flavor = this.state.flavorList[0].id;
+            }else{
+                CreateVMActions.invalidFlavor();
+            }
+
         }
         if (image) {
-            CreateVMActions.createVM();
+            CreateVMActions.createVM(image,flavor);
         }
     }
 
     renderImageLists(){
         return this.state.imageList.map((image,index)=>{
                 return(
-                 <div>
-
-                     <small>{image.name}</small>
-                </div>
+                     <option value={image.id}>{image.name}</option>
                 )
             });
     }
 
     renderFlavoursList(){
-        return  this.state.flavorList.map((flavour,index)=>{
+        return  this.state.flavorList.map((flavor,index)=>{
                 return(
-                    <div>
-                        <small>{flavour.name}</small>
-                    </div>
+                        <option value={flavor.id}>{flavor.name}</option>
                 )
             })
 
+    }
+
+    showSuccessMessage(){
+        if(this.state.serverCreatedSuccessMessage)
+        return(
+            <div class="alert alert-success">
+                <strong>Well done!</strong>{this.state.serverCreatedSuccessMessage}
+            </div>
+        )
+
+    }
+
+    showErrorMessage(){
+        if(this.state.failureMessage)
+        return(
+            <div class="alert alert-danger">
+                <strong>Oh snap!</strong> {this.state.failureMessage}
+            </div>
+        )
     }
 
     render() {
@@ -76,21 +96,19 @@ class CreateVM extends React.Component {
                 <div>
                     <div>
                         <h1>Images:</h1>
-                        <ButtonGroup name="sda"> sdas
-                            <Button bsStyle="primary" id="werewr" name="werwer">dasd</Button>
-                        </ButtonGroup>
-                        <div>
+                        <select class="form-control" onChange={CreateVMActions.updateImage}>
                             {images}
-                        </div>
+                        </select>
                     </div>
                     <div>
                         <h1>Flavors:</h1>
-                        <div>
+                        <select class="form-control" onChange={CreateVMActions.updateFlavor}>
                             {flavors}
-                        </div>
+                        </select>
+
                     </div>
                 </div>
-                <button type='submit'>Submit</button>
+                <button type="submit" class="btn btn-default">Submit</button>
             </form>
         );
     }
