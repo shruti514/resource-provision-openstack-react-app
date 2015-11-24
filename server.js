@@ -19,6 +19,7 @@ var departments = require('./server/departments');
 var nova = require('./server/nova');
 var glance = require('./server/glance');
 var User = require('./models/user');
+var users = require('./server/users');
 //require("babel-core/register");
 
 var app = express();
@@ -55,6 +56,7 @@ app.get('/servers',nova.findAllServers);
 app.post('/servers',nova.createServer);
 app.get('/flavors',nova.findAllFlavors);
 app.get('/images',glance.findAllImages);
+app.get('/userProfile',users.findCurrentUser);
 
 
 app.post('/register', function(req, res, next) {

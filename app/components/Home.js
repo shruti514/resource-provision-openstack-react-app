@@ -1,5 +1,7 @@
 
 var React = require('react')
+var {Link} = require('react-router');
+
 class Home extends React.Component {
 
 
@@ -26,11 +28,11 @@ class Home extends React.Component {
                             <a href="#" className="dropdown-toggle" data-toggle="dropdown"><i className="fa fa-user"></i> John Smith <b className="caret"></b></a>
                             <ul className="dropdown-menu">
                                 <li>
-                                    <a href="profile.html"><i className="fa fa-fw fa-user"></i> Profile</a>
+                                    <Link to={'/profile'}><i className="fa fa-fw fa-user"></i> Profile</Link>
                                 </li>
                                 <li className="divider"></li>
                                 <li>
-                                    <a href="login.html"><i className="fa fa-fw fa-power-off"></i> Log Out</a>
+                                    <Link to={'/login'}><i className="fa fa-fw fa-power-off"></i> Log Out</Link>
                                 </li>
                             </ul>
                         </li>

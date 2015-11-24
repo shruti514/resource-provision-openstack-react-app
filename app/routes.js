@@ -6,6 +6,7 @@ import CreateVM from './components/CreateVM';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
 import Charts from './components/Charts';
+import Profile from './components/Profile';
 
 export default (
   <Route component={App}>
@@ -14,5 +15,6 @@ export default (
     <Route path='/login' component={Login}/>
     <Route path='/signup' component={SignUp}/>
     <Route path='/charts' component={Charts}/>
+    <Route path='/profile' component={Profile}/>
   </Route>
 );
