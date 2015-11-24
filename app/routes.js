@@ -7,7 +7,6 @@ import Login from './components/Login';
 import SignUp from './components/SignUp';
 import Charts from './components/Charts';
 
-
 export default (
   <Route component={App}>
     <Route path='/' component={Home} />

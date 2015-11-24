@@ -24,9 +24,11 @@ class CreateVMActions {
                 data: { imageId: imageId, flavorId: flavorId }
             })
             .done((data) => {
+                alert('Create vm success')
                 this.actions.createVMSuccess(data);
             })
             .fail((jqXhr) => {
+                alert('Create vm fail')
                 this.actions.createVMFail(jqXhr.responseJSON.message);
             });
     }
