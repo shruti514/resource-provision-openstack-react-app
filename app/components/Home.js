@@ -1,11 +1,31 @@
 
 var React = require('react')
 var {Link} = require('react-router');
+import HomeStore from '../stores/HomeStore';
+import HomeActions from '../actions/HomeActions';
 
 class Home extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = HomeStore.getState();
+        this.onChange = this.onChange.bind(this);
+    }
 
+    componentDidMount(){
+        HomeStore.listen(this.onChange);
+        HomeActions.getVMCount();
+    }
+
+    componentWillUnmount() {
+        HomeStore.unlisten(this.onChange);
+    }
+
+    onChange(state){
+        this.setState(state);
+    }
 
     render() {
+        var cnt = this.state.count;
         return (
 
             <div id="wrapper">
@@ -92,7 +112,7 @@ class Home extends React.Component {
                                                 <i className="fa fa-bars fa-5x"></i>
                                             </div>
                                             <div className="col-xs-9 text-right">
-                                                <div className="huge">5</div>
+                                                <div className="huge">{cnt}</div>
                                                 <div>Created Instances</div>
                                             </div>
                                         </div>

@@ -20,6 +20,7 @@ var nova = require('./server/nova');
 var glance = require('./server/glance');
 var User = require('./models/user');
 var users = require('./server/users');
+var VMs = require('./server/virtualMachines.js');
 //require("babel-core/register");
 
 var app = express();
@@ -57,6 +58,12 @@ app.post('/servers',nova.createServer);
 app.get('/flavors',nova.findAllFlavors);
 app.get('/images',glance.findAllImages);
 app.get('/userProfile',users.findCurrentUser);
+
+app.get('/saveVirtualMachine',VMs.saveVirtualMachine);
+app.get('/findAllActiveVMList',VMs.findAllActiveVMList);
+app.get('/findAllInactiveVMList',VMs.findAllInactiveVMList);
+app.get('/findAllActiveVMCnt',VMs.findAllActiveVMCnt);
+
 
 
 app.post('/register', function(req, res, next) {

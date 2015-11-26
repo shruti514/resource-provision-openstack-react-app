@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var vmSchema= new mongoose.Schema({
+var virtualMachine= new mongoose.Schema({
     userName: String,
     image: String,
     createdDate: Date,
@@ -11,6 +11,6 @@ var vmSchema= new mongoose.Schema({
     memory: String,
     cpu: String
 
-})
+});
 
-module.exports=virtualMachines=mongoose.model('virtualMachine',vmSchema);
+module.exports = mongoose.model('virtualMachine',virtualMachine);
