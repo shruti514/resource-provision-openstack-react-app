@@ -9,18 +9,18 @@ class HomeActions {
     }
 
     getVMCount(){
-        alert('Inside action get servers');
+        //alert('Inside action get servers');
         $.ajax({
                 type: 'GET',
                 url: '/findAllActiveVMCnt'
             })
             .done((data) => {
-                alert(JSON.stringify(data))
+                //alert(JSON.stringify(data))
                 this.actions.showCreatedInstances(data);
             })
             .fail((jqXhr) => {
                 var resp= jqXhr.responseJSON.message;
-                alert(JSON.stringify(resp))
+                //alert(JSON.stringify(resp))
                 this.actions.failToShowCreatedInstance(resp);
             });
     }
