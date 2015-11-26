@@ -1,7 +1,7 @@
 
 import alt from '../alt';
 import HomeActions from '../actions/HomeActions';
-import findAllActiveVMs from '../../server/virtualMachines';
+
 
 class HomeStore{
 
@@ -12,7 +12,7 @@ class HomeStore{
 
 
     onShowCreatedInstances(data) {
-        this.count = data;
+        this.count = data.data;
     }
 
     onFailToShowCreatedInstance(errorMessage) {
