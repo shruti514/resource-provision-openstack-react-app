@@ -36,3 +36,12 @@ bower_components
 # Compiled files
 public/css/*
 public/js/*
+
+#
+assets/js/bundle.js
+assets/js/vendor.js
+assets/js/vendor.bundle.js
+
+
+#Compiled action
+app/actions/*-compiled.js*
