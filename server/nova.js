@@ -69,6 +69,66 @@ var createServer = (req,res,next)=>{
 
 };
 
+var getQuotasForTenant=(req,res,next)=>{
+    var tenantId = req.param("tenantId");
+
+    var client = new Nova({
+        url: 'http://localhost:5000/v2.0/',
+        debug: true
+    }).authenticate({
+        username: 'admin',
+        password: '13945916bd0645e1',
+        project: 'TestingDepartment',
+        async: false
+    },function(err,data){
+        console.log('called');
+        var quotas = client.quotas.get({
+            async: false,
+            id: client.tenant.id
+        },function(err,data){
+            res.send(data)
+        });
+    });
+}
+
+var  getStats = (req,res,next)=>{
+    var stats={
+        ram:{
+            quota:51200,
+            usage:1024
+        },
+        vcpus:{
+          quota:10,
+          usage:2
+        },
+        cores:{
+            quota:10,
+            usage:2
+        },
+        instances:{
+            quota:10,
+            usage:3
+        }
+    }
+
+    res.send(stats)
+
+}
+
+
+var getUsage=(req,res,next)=>{
+
+    var usage = client.quotas.usages({
+        async: false,
+        id: client.tenant.id
+    },function(err,data){
+        res.send(data)
+    });
+}
+
 exports.findAllServers = findAllServers;
 exports.createServer = createServer;
 exports.findAllFlavors = findAllFlavors;
+exports.getQuotasForTenant = getQuotasForTenant;
+exports.getUsage = getUsage;
+exports.getStats = getStats;

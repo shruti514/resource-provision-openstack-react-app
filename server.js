@@ -56,6 +56,9 @@ app.post('/save',departments.save);
 app.get('/servers',nova.findAllServers);
 app.post('/servers',nova.createServer);
 app.get('/flavors',nova.findAllFlavors);
+app.get('/quotas',nova.getQuotasForTenant);
+app.get('/usage',nova.getUsage);
+app.get('/stats',nova.getStats);
 app.get('/images',glance.findAllImages);
 app.get('/userProfile',users.findCurrentUser);
 
