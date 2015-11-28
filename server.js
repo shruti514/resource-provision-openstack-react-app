@@ -31,7 +31,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/assets',express.static(path.join(__dirname, '/assets')));
 
-mongoose.connect('mongodb://localhost/CMPE283',function(err){
+mongoose.connect('mongodb://localhost/mydb',function(err){
     console.info('Error: Could not connect to MongoDB. Did you forget to run `mongod`?'.red);
 });
 
@@ -63,6 +63,7 @@ app.get('/saveVirtualMachine',VMs.saveVirtualMachine);
 app.get('/findAllActiveVMList',VMs.findAllActiveVMList);
 app.get('/findAllInactiveVMList',VMs.findAllInactiveVMList);
 app.get('/findAllActiveVMCnt',VMs.findAllActiveVMCnt);
+app.get('/imageName',glance.getImageName);
 
 
 

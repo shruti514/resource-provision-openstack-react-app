@@ -6,7 +6,7 @@ var client = new Nova({
         debug: true
     }).authenticate({
         username: 'admin',
-        password: '13945916bd0645e1',
+        password: 'c6adeda5d08640a8',
         project: 'admin',
         async: false
     });
@@ -54,7 +54,7 @@ var createServer = (req,res,next)=>{
         name: "new-server-test",
         imageRef: req.body.imageId,
         flavorRef: req.body.flavorId,
-        networks:["0d6e0cc4-1166-4ea5-8581-905c722af4e7"],
+        networks:["545ef812-acf8-4797-b908-c21f3bf1525c"],
         metadata: {
             "My Server Name": "Apache1"
         }
