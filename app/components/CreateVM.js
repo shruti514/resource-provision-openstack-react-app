@@ -86,7 +86,7 @@ class CreateVM extends React.Component {
         if(this.state.serverCreatedSuccessMessage)
         return(
             <div className="alert alert-success">
-                <strong>Well done!</strong>{this.state.serverCreatedSuccessMessage}
+                <strong>Well done! </strong>{this.state.serverCreatedSuccessMessage}
             </div>
         )
 
@@ -96,7 +96,7 @@ class CreateVM extends React.Component {
         if(this.state.failureMessage)
         return(
             <div className="alert alert-danger">
-                <strong>Oh snap!</strong> {this.state.failureMessage}
+                <strong>Oh snap! </strong> {this.state.failureMessage}
             </div>
         )
     }

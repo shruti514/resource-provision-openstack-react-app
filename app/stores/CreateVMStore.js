@@ -22,7 +22,7 @@ class CreateVMStore{
     onCreateVMSuccess(data) {
         var message = data.message + "  Id of new Server="+JSON.stringify(data.data);
         alert(message);
-        this.serverCreatedSuccessMessage = data.message + "  Id of new Server="+JSON.stringify(data.data);
+        this.serverCreatedSuccessMessage = data.message;
         this.failureMessage =null;
     }
 
