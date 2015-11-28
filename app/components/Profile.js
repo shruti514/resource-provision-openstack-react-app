@@ -56,7 +56,7 @@ class Profile extends React.Component {
                        <ul className="nav navbar-right top-nav">
                            <li className="dropdown">
                                <a href="#" className="dropdown-toggle" data-toggle="dropdown"><i
-                                   className="fa fa-user"></i> {this.state.firstName + " " + this.state.lastName}<b
+                                   className="fa fa-user"></i> {this.state.username}<b
                                    className="caret"></b></a>
                                <ul className="dropdown-menu">
                                    <li>
@@ -129,10 +129,17 @@ class Profile extends React.Component {
                                        </div>
                                        <div className="panel-body">
                                            <div className="row">
-                                               <div className="col-md-3 col-md-offset-3 text-left"><strong>Name</strong>
+                                               <div className="col-md-3 col-md-offset-3 text-left"><strong>First Name</strong>
                                                </div>
                                                <div
-                                                   className="col-md-3 text-left">{this.state.firstName + " " + this.state.lastName}</div>
+                                                   className="col-md-3 text-left">{this.state.firstName}</div>
+                                               <div className="col-md-3"></div>
+                                           </div>
+                                           <div className="row">
+                                               <div className="col-md-3 col-md-offset-3 text-left"><strong>Last Name</strong>
+                                               </div>
+                                               <div
+                                                   className="col-md-3 text-left">{this.state.lastName}</div>
                                                <div className="col-md-3"></div>
                                            </div>
                                            <div className="row">
