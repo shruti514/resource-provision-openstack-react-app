@@ -55,13 +55,14 @@ var createServer = (req,res,next)=>{
             username:user.username,
             image:req.body.imageId,
             createdDate:new Date(),
-            terminationDate:req.body.terminationDate,
+            terminationDate:new Date(req.body.terminationDate),
             department:user.department,
             preBuiltApp: req.body.app
         });
 
         VirtualMachine.save(function(err,data){
             if(err){
+                console.log(JSON.stringify(err)+"**** Data*****"+JSON.stringify(data))
                 res.status(500).send({message:'Error persisting instance details.'})
             }
             if ("Testing" === user.department) {
@@ -138,10 +139,7 @@ var createServer = (req,res,next)=>{
                             alert('Error: after create'+JSON.stringify(err))
                             res.status(500).send({message:'Error occurred during instance creation.Please try again.'});
                         }
-
                             res.send({message:"Server created successfully!!",data:data});
-
-
                     });
 
                 });
