@@ -11,21 +11,21 @@ class ProfileStore{
         this.departmentName='';
         this.emailId='';
         this.contactNumber='';
+        this.designation="";
         this.successMessage='';
+        this.username=""
         this.errorMessage='';
         this.errorStatusCode='';
     }
 
-    onGetProfileSuccess(data){
-        //alert('store success')console.log(JSON.stringify(data))
-       this.successMessage = data.message;
-
-        var user = data.user;
+    onGetProfileSuccess(user){
         this.firstName=user.firstName;
         this.lastName=user.lastName;
-        this.departmentName=user.departmentName;
+        this.departmentName=user.department;
         this.contactNumber=user.contactNumber;
-        this.emailId=user.emailId;
+        this.emailId=user.email;
+        this.designation = user.designation;
+        this.username=user.username
     }
 
     onGetProfileFail(data){

@@ -39,7 +39,8 @@ mongoose.connect('mongodb://localhost/mydb',function(err){
 app.use(require('express-session')({
     secret: 'keyboard cat',
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: true,
+    cookie : { httpOnly: true, maxAge: 2419200000 }
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -56,6 +57,9 @@ app.post('/save',departments.save);
 app.get('/servers',nova.findAllServers);
 app.post('/servers',nova.createServer);
 app.get('/flavors',nova.findAllFlavors);
+app.get('/quotas',nova.getQuotasForTenant);
+app.get('/usage',nova.getUsage);
+app.get('/stats',nova.getStats);
 app.get('/images',glance.findAllImages);
 app.get('/userProfile',users.findCurrentUser);
 
@@ -70,7 +74,9 @@ app.get('/imageName',glance.getImageName);
 app.post('/register', function(req, res, next) {
     console.log('registering user');
 
-    User.register(new User({username: req.param('username')}), req.param('password'), function(err,user) {
+    var user = new User(req.body);
+
+    User.register(user, req.param('password'), function(err,user) {
         if (err) {
             console.log('error while user register!', err);
             return res.status(500).send({message:'Error occurred during registration'+JSON.stringify(err)});
@@ -97,7 +103,7 @@ app.post('/login',function(req,res,next){
                return res.status(401).send({message:'Please enter valid credentials.'})
             }
             // Redirect if it succeeds
-            return res.status(200).send({user:user})
+            return res.status(200).send(user)
         });
     })(req, res, next);
 
@@ -130,7 +136,7 @@ app.use(function(req,res,next){
     if(req.user){
         next();
     }else{
-        res.redirect('/login');
+        res.status(401).send({message:"No session Found."});
     }
 });
 

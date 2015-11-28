@@ -11,17 +11,26 @@ class CreateVMActions {
             'getFlavorsFail',
             'updateImage',
             'updateFlavor',
+            'updateApp',
+            'updateTerminationYear',
+            'updateTerminationDay',
+            'updateTerminationMonth',
             'invalidImage',
-            'invalidFlavor'
+            'invalidFlavor',
+            'toggleProfileDropDown',
+            'getUserSuccess',
+            'getUserFail',
+            'getStatsSuccess',
+            'getStatsFail'
         );
     }
 
-    createVM(imageId, flavorId) {
+    createVM(imageId, flavorId, terminationDate, app) {
         //alert('Inside create VM method');
         $.ajax({
                 type: 'POST',
                 url: '/servers',
-                data: { imageId: imageId, flavorId: flavorId }
+                data: { imageId: imageId, flavorId: flavorId ,terminationDate:terminationDate, app:app}
             })
             .done((data) => {
                 alert('Create vm success')
@@ -59,6 +68,34 @@ class CreateVMActions {
             })
             .fail((jqXhr) => {
                 this.actions.getFlavorsFail(jqXhr.responseJSON.message);
+            });
+    }
+
+    getUser(){
+        console.log('Inside action get servers');
+        $.ajax({
+                type: 'GET',
+                url: '/userProfile'
+            })
+            .done((data) => {
+                this.actions.getUserSuccess(data);
+            })
+            .fail((jqXhr) => {
+                this.actions.getUserFail(jqXhr.responseJSON.message);
+            });
+    }
+
+    getStats(){
+        console.log('Inside action get servers');
+        $.ajax({
+                type: 'GET',
+                url: '/stats'
+            })
+            .done((data) => {
+                this.actions.getStatsSuccess(data);
+            })
+            .fail((jqXhr) => {
+                this.actions.getStatsFail(jqXhr.responseJSON.message);
             });
     }
 }

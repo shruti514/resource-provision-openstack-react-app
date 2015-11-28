@@ -1,11 +1,11 @@
 var mongoose = require('mongoose');
 
 var virtualMachine= new mongoose.Schema({
-    userName: String,
+    username: String,
     image: String,
     createdDate: Date,
     terminationDate: Date,
-    departmentName: String,
+    department: String,
     isActive:Boolean,
     preBuiltApp: String,
     memory: String,

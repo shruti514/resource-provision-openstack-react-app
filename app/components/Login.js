@@ -50,7 +50,7 @@ class Login extends React.Component {
 
         if(this.state.isAuthenticated)
             return(
-                <Home/>
+                <Home {...this.props} user={this.state.props}/>
             );
         else
         return (

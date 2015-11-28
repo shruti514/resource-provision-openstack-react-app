@@ -9,14 +9,21 @@ class CreateVMStore{
         this.flavor = '';
         this.imageList=[];
         this.flavorList=[];
+        this.app=null;
         this.serverCreatedSuccessMessage=null;
         this.failureMessage=null;
+        this.dropDownClosed=true;
+        this.user=null;
+        this.year=9999;
+        this.month=99;
+        this.day=99;
     }
 
     onCreateVMSuccess(data) {
         var message = data.message + "  Id of new Server="+JSON.stringify(data.data);
         alert(message);
         this.serverCreatedSuccessMessage = data.message + "  Id of new Server="+JSON.stringify(data.data);
+        this.failureMessage =null;
     }
 
     onCreateVMFail(errorMessage) {
@@ -26,8 +33,13 @@ class CreateVMStore{
         this.imageList = data;
     }
 
+    onToggleProfileDropDown(){
+       this.dropDownClosed = !this.dropDownClosed
+    }
+
     onGetImagesFail(errorMessage) {
         console.log(' On Get images '+errorMessage);
+        this.failureMessage = errorMessage
     }
 
     onGetFlavorsSuccess(data) {
@@ -42,18 +54,49 @@ class CreateVMStore{
         this.image = event.target.value;
     }
 
+    onUpdateApp(event){
+        this.app=event.target.value;
+    }
+
     onUpdateFlavor(event) {
         this.flavor = event.target.value;
     }
 
-    onInvalidImage() {
-        this.imageValidationState = 'has-error';
-        this.validationMessage = 'Please select a valid image';
+    onGetUserSuccess(user){
+       this.user = user;
     }
 
-    onInvalidFlavour() {
-        this.flavorValidationState = 'has-error';
-        this.validationMessage = 'Please select a valid Flavor'
+    onGetUserFail(errorMessage){
+        this.failureMessage= errorMessage;
+    }
+
+    onGetStatsSuccess(stats){
+        this.failureMessage=null;
+        this.stats = stats;
+    }
+
+    onGetStatsFail(errorMessage){
+        this.failureMessage = errorMessage;
+    }
+
+    onInvalidImage(){
+        this.failureMessage = "Please select a valid Image.";
+    }
+
+    onInvalidFlavor(){
+        this.failureMessage = "Please select a valid Flavor.";
+    }
+
+    onUpdateTerminationYear(event){
+       this.year = event.target.value
+    }
+
+    onUpdateTerminationMonth(event){
+       this.month = event.target.value
+    }
+
+    onUpdateTerminationDay(event){
+       this.day = event.target.value
     }
 
 }
