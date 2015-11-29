@@ -6,9 +6,9 @@ var client = new Glance({
     url: 'http://localhost:5000/v2.0/',
     debug: true
 }).authenticate({
-    username: 'admin',
-    password: 'c6adeda5d08640a8',
-    project: 'admin',
+    username: 'nova',
+    password: '630b508c42f64d26',
+    project: 'services',
     async: false
 });
 

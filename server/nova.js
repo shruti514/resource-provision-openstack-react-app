@@ -6,10 +6,10 @@ var client = new Nova({
         url: 'http://localhost:5000/v2.0/',
         debug: true
     }).authenticate({
-        username: 'admin',
-        password: '13945916bd0645e1',
-        project: 'admin',
-        async: false
+            username: 'nova',
+            password: '630b508c42f64d26',
+            project: 'services',
+            async: false
     });
 
 var findAllServers = (req,res,next) =>{

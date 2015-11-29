@@ -5,9 +5,9 @@ var client = new Nova({
     url: 'http://localhost:5000/v2.0/',
     debug: true
 }).authenticate({
-    username: 'admin',
-    password: '058b9a27e4304b56',
-    project: 'admin',
+    username: 'nova',
+    password: '630b508c42f64d26',
+    project: 'services',
     async: false
 });
 
