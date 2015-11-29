@@ -1,6 +1,8 @@
 
 var Nova = require("openclient").getAPI('openstack', 'compute', '1.1');
 var VirtualMachine = require('../models/virtualMachine');
+var Schedule = require('node-schedule');
+
 
 var client = new Nova({
         url: 'http://localhost:5000/v2.0/',
@@ -50,6 +52,13 @@ var findAllFlavors = (req,res,next) =>{
 var createServer = (req,res,next)=>{
 
     var user = req.user;
+    var terminationDate=new Date(req.body.terminationDate);
+    var day=terminationDate.getDate();
+    var year=terminationDate.getYear();
+    var month=terminationDate.getMonth();
+    var dateToTerminate= new Date(year, month, day,0,0,0);
+
+
     if(user) {
         VirtualMachine = new VirtualMachine({
             username:user.username,
@@ -99,6 +108,11 @@ var createServer = (req,res,next)=>{
                             res.status(500).send({message:'Error occurred while creating an instance.Please try again.'});
                         }
 
+                       var terminate=Schedule.scheduleJob(dateToTerminate,function(){testingClient.servers.del({
+                           tenant_id: testingClient.tenant.id,
+                           //server_id:testingClient.server.id,
+                            async:false
+                        })});
                             res.send({message:"Server created successfully!!",data:data});
 
                     });
@@ -139,6 +153,11 @@ var createServer = (req,res,next)=>{
                             alert('Error: after create'+JSON.stringify(err))
                             res.status(500).send({message:'Error occurred during instance creation.Please try again.'});
                         }
+                        var terminate=Schedule.scheduleJob(dateToTerminate,function(){developmentClient.servers.del({
+                            tenant_id: developmentClient.tenant.id,
+                           // server_id:developmentClient.server.id,
+                            async:false
+                        })});
                             res.send({message:"Server created successfully!!",data:data});
                     });
 
