@@ -1,5 +1,6 @@
 
 var Nova = require("openclient").getAPI('openstack', 'compute', '1.1');
+var Glance = require("openclient").getAPI('openstack', 'image', '1.0');
 var VirtualMachine = require('../models/virtualMachine');
 
 var client = new Nova({
@@ -7,12 +8,23 @@ var client = new Nova({
         debug: true
     }).authenticate({
         username: 'admin',
-        password: '13945916bd0645e1',
+        password: 'c6adeda5d08640a8',
         project: 'admin',
         async: false
     });
 
+var glanceClient = new Glance({
+    url: 'http://localhost:5000/v2.0/',
+    debug: true
+}).authenticate({
+    username: 'admin',
+    password: 'c6adeda5d08640a8',
+    project: 'admin',
+    async: false
+});
+
 var findAllServers = (req,res,next) =>{
+
     client.servers.all({async:false},function(err,servers){
         var toReturn=[];
         servers.map((server,index)=>{
@@ -20,9 +32,16 @@ var findAllServers = (req,res,next) =>{
                 id:server.id,
                 name:server.name,
                 status: server.status,
-                image:server.image.id,
+                image:server.image,
                 flavor:server.flavor.id
             };
+            for(var i = 0; i < temp.length; i++)
+            {
+                glanceClient.images.get({id: temp[i].image}, function (err, image) {
+                    //var toReturn = image.name;
+                    temp[i].image = image.name;
+                });
+            }
             toReturn.push(temp)
         });
         res.send(toReturn);
