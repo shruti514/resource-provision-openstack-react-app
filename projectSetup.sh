@@ -32,22 +32,25 @@ nova quota-update --instances 2 $tenant_id
 echo "Creating a User"
 keystone user-create --name=TestingAccount --pass=test --tenant_id=$tenant_id --email=TesterAccount@example.com
 
+echo "************** Uploading Images to Development Department **************"
+
 echo "Creating Ubuntu Image for Development department"
 source keystonerc_admin
-glance image-create --name UBUNTU --disk-format=vdi --container-format=bare --is-public False --file ~/cirros-0.3.4-x86_64-disk.img
+glance image-create --name UBUNTU --disk-format=vdi --owner $tenant_id --container-format=bare --is-public false --file ~/cirros-0.3.4-x86_64-disk.img
 
-echo "Creating Cirros Image for Development department"
+echo "Creating Fedora Image for Development department"
 source keystonerc_admin
-glance image-create --name CIRROS --disk-format=vdi --container-format=bare --is-public False --file ~/cirros-0.3.4-x86_64-disk.img
+glance image-create --name FEDORA --disk-format=vdi --owner $tenant_id --container-format=bare --is-public false --file ~/cirros-0.3.4-x86_64-disk.img
 
+echo "************** Uploading Images to Testing Department **************"
 
-echo "Creating FEDORA Image for Testing department"
+echo "Creating Cirros Image for Testing department"
 source keystonerc_admin
-glance image-create --name FEDORA --disk-format=vhd --container-format=bare --is-public False --file ~/cirros-0.3.4-x86_64-disk.img
+glance image-create --name CIRROS --disk-format=vhd --owner $tenant_id --container-format=bare --is-public false --file ~/cirros-0.3.4-x86_64-disk.img
 
 echo "Creating SOLARIS Image for Testing department"
 source keystonerc_admin
-glance image-create --name SOLARIS --disk-format=vdi --container-format=bare --is-public False --file ~/cirros-0.3.4-x86_64-disk.img
+glance image-create --name SOLARIS --disk-format=vdi --owner $tenant_id --container-format=bare --is-public false --file ~/cirros-0.3.4-x86_64-disk.img
 
 
 
