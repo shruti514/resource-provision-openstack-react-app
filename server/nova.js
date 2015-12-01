@@ -8,7 +8,7 @@ var client = new Nova({
         debug: true
     }).authenticate({
         username: 'admin',
-        password: 'c6adeda5d08640a8',
+        password: '13945916bd0645e1',
         project: 'admin',
         async: false
     });
@@ -18,7 +18,7 @@ var glanceClient = new Glance({
     debug: true
 }).authenticate({
     username: 'admin',
-    password: 'c6adeda5d08640a8',
+    password: '13945916bd0645e1',
     project: 'admin',
     async: false
 });
@@ -27,24 +27,29 @@ var findAllServers = (req,res,next) =>{
 
     client.servers.all({async:false},function(err,servers){
         var toReturn=[];
-        servers.map((server,index)=>{
-            var temp = {
-                id:server.id,
-                name:server.name,
-                status: server.status,
-                image:server.image,
-                flavor:server.flavor.id
-            };
-            for(var i = 0; i < temp.length; i++)
-            {
-                glanceClient.images.get({id: temp[i].image}, function (err, image) {
-                    //var toReturn = image.name;
-                    temp[i].image = image.name;
-                });
-            }
-            toReturn.push(temp)
-        });
-        res.send(toReturn);
+        if(servers){
+            servers.map((server,index)=>{
+                var temp = {
+                    id:server.id,
+                    name:server.name,
+                    status: server.status,
+                    image:server.image,
+                    flavor:server.flavor.id
+                };
+                for(var i = 0; i < temp.length; i++)
+                {
+                    glanceClient.images.get({id: temp[i].image}, function (err, image) {
+                        //var toReturn = image.name;
+                        temp[i].image = image.name;
+                    });
+                }
+                toReturn.push(temp)
+            });
+            res.send(toReturn);
+        }else{
+            res.send(toReturn)
+        }
+
     })
 };
 
@@ -312,6 +317,8 @@ var  getStats = (req,res,next)=>{
 }
 
 var buildStatsResponse=(usage,quota)=>{
+    console.log("Usage"+JSON.stringify(usage));
+    console.log("Quota"+JSON.stringify(quota));
     return {
         ram:{
             quota:quota.ram,
