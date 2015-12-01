@@ -13,8 +13,6 @@ var client = new Glance({
 });
 
 var findAllImages = (req,res,next) =>{
-
-
     var user = req.user;
     if(user) {
 
@@ -91,27 +89,14 @@ var findAllImages = (req,res,next) =>{
 
 }
 
-var getImageName = id => (req,res,next) =>{
-       console.log('get image name called!');
-       client.images.get({id,success:function(images) {
-        var toReturn = [];
-        images.map((image, index)=> {
-            var temp = {
-                 /*id:image.id,
-                 uri:image.uri,
-                 name:image.name,
-                 disk_format:image.disk_format,
-                 size:image.size,
-                 is_public:image.is_public,
-                 min_ram:image.min_ram,
-                 min_disk:image.min_disk*/
-                name: image.name
-            };
-            toReturn.push(temp)
+var getImageName = (image) =>{
+    console.log("Image called!");
+           client.images.get({id:image},function(img) {
+           var toReturn = img.name;
+           res.send(toReturn);
         });
-        res.send(toReturn);
+
     }
-    })
-}
+
 exports.findAllImages = findAllImages;
 exports.getImageName = getImageName;

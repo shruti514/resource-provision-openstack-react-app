@@ -135,9 +135,9 @@ var saveVirtualMachine = (req,res,next) =>{
             console.log(err);
             res.send(err);
         }
-        /*res.send({
+        res.send({
             message: 'virtual machine added'
-        });*/
+        });
     });
 }
 

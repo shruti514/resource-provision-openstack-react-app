@@ -7,7 +7,10 @@ class HomeActions {
             'FailToShowCreatedInstance',
             'ShowInstanceListSuccess',
             'FailToShowInstanceList',
-            'GetImageNameByID'
+            'GetImageNameByIDSuccess',
+            'FailToGetImageNameByID',
+            'GetStatsSuccess',
+            'FailToGetStats'
         );
     }
 
@@ -46,19 +49,34 @@ class HomeActions {
     }
 
     getImageByID(){
-        alert('Inside action get image by ID');
         $.ajax({
                 type: 'GET',
                 url: '/imageName'
             })
             .done((data) => {
                 //alert(JSON.stringify(data))
-                this.actions.GetImageNameByID(data);
+                this.actions.GetImageNameByIDSuccess(data);
             })
             .fail((jqXhr) => {
-               // var resp= jqXhr.responseJSON.message;
+                var resp= jqXhr.responseJSON.message;
                 //alert(JSON.stringify(resp))
-                //this.actions.FailToShowInstanceList(resp);
+                this.actions.FailToGetImageNameByID(resp);
+            });
+    }
+
+    getStats(){
+        $.ajax({
+                type: 'GET',
+                url: '/stats'
+            })
+            .done((data) => {
+                //alert(JSON.stringify(data))
+                this.actions.GetStatsSuccess(data);
+            })
+            .fail((jqXhr) => {
+                var resp= jqXhr.responseJSON.message;
+                //alert(JSON.stringify(resp))
+                this.actions.FailToGetStats(resp);
             });
     }
 

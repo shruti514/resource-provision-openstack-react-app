@@ -1,6 +1,8 @@
 
 import alt from '../alt';
 import HomeActions from '../actions/HomeActions';
+import getImageName from '../../server/glance';
+var img = require('../../server/glance');
 
 
 class HomeStore{
@@ -9,6 +11,8 @@ class HomeStore{
         this.bindActions(HomeActions);
         this.count = 0;
         this.serverList=[];
+        this.stats = [];
+
     }
     onShowCreatedInstances(data) {
         this.count = data.data;
@@ -19,21 +23,44 @@ class HomeStore{
     }
 
     onShowInstanceListSuccess(data) {
-
-
-/*        this.serverList.map(function(data,index) {
-
-            this.serverList[index].name = data[index].name;
-
-        }*/
+        console.log("Success called");
         this.serverList = data;
+
+       /* this.templist = this.serverList;
+
+        console.log("lenght : " + this.serverList.length);
+
+        var res;
+        for(var i = 0; i < this.serverList.length; i++)
+        {
+           console.log("For loop");
+
+           var name =  img.getImageName(this.serverList[i].image,res);
+            //console.log("image name : " + this.templist[i]);
+            console.log("Name : " + name);
+
+        }
+        this.serverList = this.templist;*/
+
     }
 
     onFailToShowInstanceList(errorMessage) {
         console.log(' Error :  '+errorMessage)
     }
 
-    onGetImageNameByID(errorMessage) {
+    onGetImageNameByIDSuccess(data)
+    {
+    }
+
+    onFailToGetImageNameByID(errorMessage) {
+        console.log(' Error :  '+errorMessage)
+    }
+
+    onGetStatsSuccess(data) {
+        this.stats = data;
+    }
+
+    onFailToGetStats(errorMessage) {
         console.log(' Error :  '+errorMessage)
     }
 }

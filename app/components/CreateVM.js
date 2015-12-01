@@ -4,6 +4,8 @@ import CreateVMStore from '../stores/CreateVMStore';
 import CreateVMActions from '../actions/CreateVMActions';
 import {Link} from 'react-router';
 import Login from './Login';
+var DropdownButton = require('react-bootstrap').DropdownButton
+var MenuItem = require('react-bootstrap').MenuItem
 
 
 class CreateVM extends React.Component {
@@ -102,39 +104,15 @@ class CreateVM extends React.Component {
     }
 
     renderDropDown(){
-        if(this.state.dropDownClosed){
-            return(
-                <li className="dropdown">
-                    <a href="#" className="dropdown-toggle" data-toggle="dropdown" onClick={CreateVMActions.toggleProfileDropDown}><i className="fa fa-user"></i> {this.getUsername()} <b className="caret"></b></a>
-                    <ul className="dropdown-menu">
-                        <li>
-                            <Link to={'/profile'}><i className="fa fa-fw fa-user"></i> Profile</Link>
-                        </li>
+         return(
+                <li className="dropdown dropdown-toggle">
+                    <DropdownButton style={{background:'#1D1F1D'}} title={this.getUsername()} id="bg-vertical-dropdown-1">
+                        <MenuItem eventKey="1"><Link to={'/profile'}> <i className="fa fa-fw fa-user"></i> Profile</Link></MenuItem>
                         <li className="divider"></li>
-                        <li>
-                            <Link to={'/logout'}><i className="fa fa-fw fa-power-off"></i> Log Out</Link>
-                        </li>
-                    </ul>
+                        <MenuItem eventKey="2"><Link to={'/login'}><i className="fa fa-fw fa-power-off"></i> Log Out</Link></MenuItem>
+                    </DropdownButton>
                 </li>
             )
-        }else{
-
-            return(
-                <li class="dropdown open">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" onClick={CreateVMActions.toggleProfileDropDown}><i class="fa fa-user"></i> {this.getUsername()} <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <Link to={'/profile'}><i className="fa fa-fw fa-user"></i> Profile</Link>
-                        </li>
-
-                        <li class="divider"></li>
-                        <li>
-                            <Link to={'/logout'}><i className="fa fa-fw fa-power-off"></i> Log Out</Link>
-                        </li>
-                    </ul>
-                </li>
-            )
-        }
 
     }
 
@@ -164,7 +142,8 @@ class CreateVM extends React.Component {
 
     getAvailableInstances(){
         if(this.state.stats){
-            return this.state.stats.instances.quota-this.state.stats.instances.usage;
+            console.log(JSON.stringify(this.state.stats))
+            return this.state.stats.instances.quota - this.state.stats.instances.usage;
         }
 
         return 0;
@@ -333,6 +312,11 @@ class CreateVM extends React.Component {
                                                 <tr>
                                                     <td  className="td-bottom-space"><label>Department</label></td>
                                                     <td  className="td-bottom-space"> <input type="text" value={this.getUserDepartment()}/></td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td  className="td-bottom-space"><label>Server Name</label></td>
+                                                    <td  className="td-bottom-space"> <input type="text" onChange={CreateVMActions.update}/></td>
                                                 </tr>
 
                                                 <tr>

@@ -15,7 +15,8 @@ class Home extends React.Component {
         HomeStore.listen(this.onChange);
         HomeActions.getVMCount();
         HomeActions.getVMList();
-        HomeActions.getImageByID();
+       // HomeActions.getImageByID();
+        HomeActions.getStats();
     }
 
     componentWillUnmount() {
@@ -28,12 +29,14 @@ class Home extends React.Component {
 
     renderServerLists(){
 
+
         return this.state.serverList.map(function(server,index){
             return(
                 <tr>
 
                     <td>{server.name}</td>
                     <td>{server.id}</td>
+                    <td>{server.image}</td>
                     <td>{server.flavor}</td>
                     <td>{server.status}</td>
                 </tr>
@@ -45,6 +48,8 @@ class Home extends React.Component {
     render() {
         var cnt = this.state.count;
         var serverList = this.renderServerLists();
+        var stats = this.state.stats;
+        console.log('Stats : ', stats);
         //var serverList = [];
 
 
