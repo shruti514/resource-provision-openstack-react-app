@@ -74,12 +74,38 @@ var findAllServers = (req,res,next) =>{
                     }
                     res.send(data);
                 });
-            });
-        }
-    }else{
-        res.status(401).send({message:'No session found'})
-    }
 
+    client.servers.all({async:false},function(err,servers){
+        var toReturn=[];
+        if(servers){
+            glanceClient.images.all({async:false}, function (err, images) {
+                //var toReturn = image.name;
+
+                servers.map((server,index)=>{
+                    var imageName=''
+                    if(images){
+                       images.forEach((image,index)=>{
+                            if(image.id==server.image.id){
+                                imageName= image.name;
+                            }
+                        })
+                    }
+                    var temp = {
+                        id:server.id,
+                        name:server.name,
+                        status: server.status,
+                        image:imageName,
+                        flavor:server.flavor.id
+                    };
+                    toReturn.push(temp);
+                });
+                res.send(toReturn)
+            });
+
+        }else{
+            res.send(toReturn)
+        }
+    })
 };
 
 var findAllFlavors = (req,res,next) =>{
