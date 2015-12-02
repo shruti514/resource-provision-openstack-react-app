@@ -52,5 +52,8 @@ echo "Creating SOLARIS Image for Testing department"
 source keystonerc_admin
 glance image-create --name SOLARIS --disk-format=vdi --owner $tenant_id --container-format=bare --is-public false --file ~/cirros-0.3.4-x86_64-disk.img
 
+echo "************** Creating Network for Testing department **************
 
+ neutron net-create TestingNet
 
+ neutron subnet-create net1 localhost/24 --name subnet1

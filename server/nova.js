@@ -8,7 +8,7 @@ var client = new Nova({
         debug: true
     }).authenticate({
         username: 'admin',
-        password: '13945916bd0645e1',
+        password: 'c6adeda5d08640a8',
         project: 'admin',
         async: false
     });
@@ -18,39 +18,68 @@ var glanceClient = new Glance({
     debug: true
 }).authenticate({
     username: 'admin',
-    password: '13945916bd0645e1',
+    password: 'c6adeda5d08640a8',
     project: 'admin',
     async: false
 });
 
 var findAllServers = (req,res,next) =>{
 
-    client.servers.all({async:false},function(err,servers){
-        var toReturn=[];
-        if(servers){
-            servers.map((server,index)=>{
-                var temp = {
-                    id:server.id,
-                    name:server.name,
-                    status: server.status,
-                    image:server.image,
-                    flavor:server.flavor.id
-                };
-                for(var i = 0; i < temp.length; i++)
-                {
-                    glanceClient.images.get({id: temp[i].image}, function (err, image) {
-                        //var toReturn = image.name;
-                        temp[i].image = image.name;
-                    });
+    var user = req.user;
+    if(user) {
+        if ("Testing" === user.department) {
+            var testingClient = new Nova({
+                url: 'http://localhost:5000/v2.0/',
+                debug: true
+            }).authenticate({
+                username: 'TestingAccount',
+                password: 'test',
+                project: 'Testing Team',
+                async: false
+            }, function (err, data) {
+                if (err) {
+                    res.status(500).send({message: 'Error authenticating Testing team account'})
                 }
-                toReturn.push(temp)
+                console.log('called');
+                testingClient.servers.all({
+                    async: false
+                }, function (err, data) {
+                    if (err) {
+                        res.status(500).send({message: 'Error fetching Servers for Testing team account'})
+                    }
+                    res.send(data);
+                });
             });
-            res.send(toReturn);
-        }else{
-            res.send(toReturn)
         }
+        if ("Development" === user.department) {
+            var developmentClient = new Nova({
+                url: 'http://localhost:5000/v2.0/',
+                debug: true
+            }).authenticate({
+                username: 'DeveloperAccount',
+                password: 'test',
+                project: 'Development Team',
+                async: false
+            }, function (err, data) {
+                if (err) {
+                    res.status(500).send({message: 'Error authenticating Development team account'})
+                }
+                console.log('called');
+                developmentClient.servers.all({
+                    async: false,
+                    id: developmentClient.tenant.id
+                }, function (err, data) {
+                    if (err) {
+                        res.status(500).send({message: 'Error fetching Servers for DevelopmentTeam team account'})
+                    }
+                    res.send(data);
+                });
+            });
+        }
+    }else{
+        res.status(401).send({message:'No session found'})
+    }
 
-    })
 };
 
 var findAllFlavors = (req,res,next) =>{

@@ -23,7 +23,7 @@ class HomeStore{
     }
 
     onShowInstanceListSuccess(data) {
-        console.log("Success called");
+        console.log("Success called",data);
         this.serverList = data;
 
        /* this.templist = this.serverList;

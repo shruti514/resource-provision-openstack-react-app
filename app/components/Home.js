@@ -48,10 +48,7 @@ class Home extends React.Component {
     render() {
         var cnt = this.state.count;
         var serverList = this.renderServerLists();
-        var stats = this.state.stats;
-        console.log('Stats : ', stats);
-        //var serverList = [];
-
+        // var stats = this.state.stats;
 
         return (
 
@@ -88,28 +85,28 @@ class Home extends React.Component {
                     <div className="collapse navbar-collapse navbar-ex1-collapse">
                         <ul className="nav navbar-nav side-nav">
                             <li className="active">
-                                <a href="home.html"><i className="fa fa-fw fa-dashboard"></i>&nbsp;Dashboard</a>
+                                <a href="http://localhost:3000"><i className="fa fa-fw fa-dashboard"></i>&nbsp;Dashboard</a>
                             </li>
 
                             <li>
                                 <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i className="fa fa-fw"></i> Departments <i className="fa fa-fw fa-caret-down"></i></a>
                                 <ul id="demo" className="collapse">
                                     <li>
-                                        <a href="development.html">Development</a>
+                                        <a href="http://localhost:3000">Development</a>
                                     </li>
                                     <li>
-                                        <a href="testing.html">Testing</a>
+                                        <a href="http://localhost:3000">Testing</a>
                                     </li>
                                 </ul>
                             </li>
                             <li className="active">
-                                <a href="instances.html"><i className="fa fa-fw fa-bars"></i>&nbsp;List Instances</a>
+                                <a href="http://localhost:3000"><i className="fa fa-fw fa-bars"></i>&nbsp;List Instances</a>
                             </li>
                             <li className="active">
                                 <Link to={'/create'}><i className="fa fa-fw fa-desktop"></i>&nbsp;Create Instances</Link>
                             </li>
                             <li className="active">
-                                <a href="resource_consumption.html"><i className="fa fa-fw fa-bar-chart"></i>&nbsp;Resource Consumption</a>
+                                <a href="http://localhost:3000"><i className="fa fa-fw fa-bar-chart"></i>&nbsp;Resource Consumption</a>
                             </li>
                         </ul>
                     </div>
