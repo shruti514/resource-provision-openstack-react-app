@@ -76,8 +76,7 @@ class CreateVM extends React.Component {
     }
 
     renderApps(){
-        var apps=["App_1_version_1.0","App_1_version_2.2","App_2_version_12.0","App_2_version_14.06"]
-        return apps.map((app,index)=>{
+        return this.state.apps.map((app,index)=>{
             return (
                 <option value={index}>{app}</option>
             )
@@ -149,11 +148,39 @@ class CreateVM extends React.Component {
         return 0;
     }
 
+    renderImagesInput(){
+        if(this.state.showImages)
+            var images = this.renderImageLists();
+        return(
+            <tr>
+                <td className="td-bottom-space"> <label>Select Image</label></td>
+                <td className="td-bottom-space">
+                    <select name="Images" onChange={CreateVMActions.updateImage}>
+                        {images}
+                    </select>
+                </td>
+            </tr>
+        )
+    }
+
+    renderAppEnvMessage(){
+        if(this.state.appEnvMessage)
+        return(
+            <tr>
+                <td className="td-bottom-space"> <label>Env Details</label> </td>
+                <td className="td-bottom-space">
+                    <div class="alert alert-info">
+                        <strong>Runtime Env Details : </strong> {this.state.appEnvMessage}
+                    </div>
+                </td>
+            </tr>
+        )
+    }
+
     render() {
         if(!this.state.user){
             return <Login/>
         }
-        var images = this.renderImageLists();
         var flavors = this.renderFlavoursList();
         var apps = this.renderApps();
         return (
@@ -327,22 +354,19 @@ class CreateVM extends React.Component {
                                                         </select>
                                                     </td>
                                                 </tr>
-                                                <tr>
-                                                    <td className="td-bottom-space"> <label>Select Image</label></td>
-                                                    <td className="td-bottom-space">
-                                                        <select name="Images" onChange={CreateVMActions.updateImage}>
-                                                            {images}
-                                                        </select>
-                                                    </td>
-                                                </tr>
+
                                                 <tr>
 
-                                                    <td className="td-bottom-space"> <label>Pre-Install App</label> </td>
+                                                    <td className="td-bottom-space"> <label>Runtime Environment For Application</label> </td>
                                                     <td className="td-bottom-space">
                                                         <select name="app" onChange={CreateVMActions.updateApp}>
                                                             {apps}
                                                     </select></td>
                                                 </tr>
+
+                                                {this.renderImagesInput()}
+
+                                                {this.renderAppEnvMessage()}
 
                                                 <tr>
                                                     <td className="td-bottom-space"> <label>Termination Date </label> </td>

@@ -17,6 +17,23 @@ class CreateVMStore{
         this.year=9999;
         this.month=99;
         this.day=99;
+        this.showImages=false;
+        this.apps=["App_1_version_1.0","App_1_version_2.2","Other"]
+        this.appEnvMessage=null;
+        this.envDetails={
+            "App_1_version_1.0":{
+                message:"Requested VM will have Java Runtime-7",
+                image:"Cirros-with-Java-7"
+            },
+            "App_1_version_2.2":{
+                message:"Requested VM will have Java Runtime-8",
+                image:"Cirros-with-Java-8"
+            },
+            "Other":{
+                message:"Requested VM will have Hadoop Installed",
+                image:"Cirros-with-Hadoop"
+            }
+        }
     }
 
     onCreateVMSuccess(data) {
@@ -56,6 +73,18 @@ class CreateVMStore{
 
     onUpdateApp(event){
         this.app=event.target.value;
+        if(this.app == "Other"){
+            this.showImages = true;
+        }
+        else{
+            this.showImages=false;
+        }
+        this.appEnvMessage=this.envDetails[event.target.value].message;
+        this.imageList.forEach(function(image,index){
+            if(image.name==this.envDetails[event.target.value].image){
+                this.image= image.id
+            }
+        })
     }
 
     onUpdateFlavor(event) {
@@ -73,6 +102,9 @@ class CreateVMStore{
     onGetStatsSuccess(stats){
         this.failureMessage=null;
         this.stats = stats;
+        if(stats.instances.quota==stats.instances.usage){
+            this.failureMessage = "Can not process request.You have reached your quota limit.";
+        }
     }
 
     onGetStatsFail(errorMessage){

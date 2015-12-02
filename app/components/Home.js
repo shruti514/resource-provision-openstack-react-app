@@ -3,6 +3,9 @@ var React = require('react')
 var {Link} = require('react-router');
 import HomeStore from '../stores/HomeStore';
 import HomeActions from '../actions/HomeActions';
+var DropdownButton = require('react-bootstrap').DropdownButton
+var MenuItem = require('react-bootstrap').MenuItem
+
 
 class Home extends React.Component {
     constructor(props){
@@ -68,24 +71,19 @@ class Home extends React.Component {
                     </div>
 
                     <ul className="nav navbar-right top-nav">
-                        <li className="dropdown">
-                            <a href="#" className="dropdown-toggle" data-toggle="dropdown"><i className="fa fa-user"></i> John Smith <b className="caret"></b></a>
-                            <ul className="dropdown-menu">
-                                <li>
-                                    <Link to={'/profile'}><i className="fa fa-fw fa-user"></i> Profile</Link>
-                                </li>
+                        <li className="dropdown dropdown-toggle">
+                            <DropdownButton style={{background:'#1D1F1D'}} title={this.getUsername()} id="bg-vertical-dropdown-1">
+                                <MenuItem eventKey="1"><Link to={'/profile'}> <i className="fa fa-fw fa-user"></i> Profile</Link></MenuItem>
                                 <li className="divider"></li>
-                                <li>
-                                    <Link to={'/login'}><i className="fa fa-fw fa-power-off"></i> Log Out</Link>
-                                </li>
-                            </ul>
+                                <MenuItem eventKey="2"><Link to={'/login'}><i className="fa fa-fw fa-power-off"></i> Log Out</Link></MenuItem>
+                            </DropdownButton>
                         </li>
                     </ul>
 
                     <div className="collapse navbar-collapse navbar-ex1-collapse">
                         <ul className="nav navbar-nav side-nav">
                             <li className="active">
-                                <a href="http://localhost:3000"><i className="fa fa-fw fa-dashboard"></i>&nbsp;Dashboard</a>
+                                <Link to={'/'}><i className="fa fa-fw fa-dashboard"></i>&nbsp;Dashboard</Link>
                             </li>
 
                             <li>
@@ -100,13 +98,13 @@ class Home extends React.Component {
                                 </ul>
                             </li>
                             <li className="active">
-                                <a href="http://localhost:3000"><i className="fa fa-fw fa-bars"></i>&nbsp;List Instances</a>
+                                <Link to={'/'}><i className="fa fa-fw fa-bars"></i>&nbsp;List Instances</Link>
                             </li>
                             <li className="active">
                                 <Link to={'/create'}><i className="fa fa-fw fa-desktop"></i>&nbsp;Create Instances</Link>
                             </li>
                             <li className="active">
-                                <a href="http://localhost:3000"><i className="fa fa-fw fa-bar-chart"></i>&nbsp;Resource Consumption</a>
+                                <Link to={'/charts'}><i className="fa fa-fw fa-bar-chart"></i>&nbsp;Resource Consumption</Link>
                             </li>
                         </ul>
                     </div>
@@ -141,13 +139,13 @@ class Home extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <a href="#">
+                                    <Link to={'/'}>
                                         <div className="panel-footer">
                                             <span className="pull-left">List Instances</span>
                                             <span className="pull-right"><i className="fa fa-arrow-circle-right"></i></span>
                                             <div className="clearfix"></div>
                                         </div>
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
 
@@ -164,13 +162,11 @@ class Home extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <a href="#">
-                                        <div className="panel-footer">
-                                            <span className="pull-left">Create Instance</span>
-                                            <a href="create_instance.html"><span className="pull-right"><i className="fa fa-arrow-circle-right"></i></span></a>
-                                            <div className="clearfix"></div>
-                                        </div>
-                                    </a>
+                                    <div className="panel-footer">
+                                        <span className="pull-left">Create Instance</span>
+                                        <Link to={'/create'}><span className="pull-right"><i className="fa fa-arrow-circle-right"></i></span></Link>
+                                        <div className="clearfix"></div>
+                                    </div>
                                 </div>
                             </div>
                             <div className="col-lg-4 col-md-6">
@@ -186,13 +182,11 @@ class Home extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <a href="#">
-                                        <div className="panel-footer">
-                                            <span className="pull-left">Resource Consumption</span>
-                                            <a href="resource_consumption.html"><span className="pull-right"><i className="fa fa-arrow-circle-right"></i></span></a>
-                                            <div className="clearfix"></div>
-                                        </div>
-                                    </a>
+                                    <div className="panel-footer">
+                                        <span className="pull-left">Resource Consumption</span>
+                                        <Link to={'/charts'}><span className="pull-right"><i className="fa fa-arrow-circle-right"></i></span></Link>
+                                        <div className="clearfix"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
