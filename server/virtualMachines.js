@@ -157,11 +157,69 @@ var findAllInactiveVMs = (req,res,next) =>{
 }
 var findAllActiveVMCount = (req,res,next) =>{
 
-    virtualMachine.count({ isActive: true },function(err,count){
+  /*  virtualMachine.count({ isActive: true },function(err,count){
         console.log(req.user)
         console.log("Active VMs"+JSON.stringify(count))
         res.status(200).send({data:count});
-    })
+    })*/
+
+    var user = req.user;
+    var temp=[];
+    if(user) {
+        if ("Testing" === user.department) {
+            var testingClient = new Nova({
+                url: 'http://localhost:5000/v2.0/',
+                debug: true
+            }).authenticate({
+                username: 'TestingAccount',
+                password: 'test',
+                project: 'Testing Team',
+                async: false
+            }, function (err, data) {
+                if (err) {
+                    res.status(500).send({message: 'Error authenticating Testing team account'})
+                }
+                console.log('called');
+                testingClient.servers.all({
+                    async: false
+                }, function (err, data) {
+                    if (err) {
+                        res.status(500).send({message: 'Error fetching Servers for Testing team account'})
+                    }
+                    temp = data;
+                    res.send(temp.length);
+                });
+            });
+        }
+        if ("Development" === user.department) {
+            var developmentClient = new Nova({
+                url: 'http://localhost:5000/v2.0/',
+                debug: true
+            }).authenticate({
+                username: 'DeveloperAccount',
+                password: 'test',
+                project: 'Development Team',
+                async: false
+            }, function (err, data) {
+                if (err) {
+                    res.status(500).send({message: 'Error authenticating Development team account'})
+                }
+                console.log('called');
+                developmentClient.servers.all({
+                    async: false,
+                    id: developmentClient.tenant.id
+                }, function (err, data) {
+                    if (err) {
+                        res.status(500).send({message: 'Error fetching Servers for DevelopmentTeam team account'})
+                    }
+                    temp = data;
+                    res.send(temp.length);
+                });
+            });
+        }
+    }else{
+        res.status(401).send({message:'No session found'})
+    }
 
 }
 

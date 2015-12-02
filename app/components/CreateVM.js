@@ -425,10 +425,6 @@ class CreateVM extends React.Component {
                                         </div>
 
                                     </div>
-
-
-
-
                                 </div>
                             </div>
                         </div>
