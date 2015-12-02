@@ -61,8 +61,8 @@ class CreateVMStore{
         this.flavorList = data;
     }
 
-    onUpdateServerName(data) {
-        this.serverName = data;
+    onUpdateServerName(event) {
+        this.serverName = event.target.value;;
     }
 
     onGetFlavorsFail(errorMessage) {
@@ -79,13 +79,13 @@ class CreateVMStore{
             this.showImages = true;
         }
         else{
-            this.showImages=false;s
+            this.showImages=false;
         }
         this.appEnvMessage=this.envDetails[event.target.selectedOptions[0].text].message;
         var self = this;
         this.imageList.forEach(function(image,index){
             if(image.name==self.envDetails[event.target.selectedOptions[0].text].image){
-                this.image= image.id
+                self.image= image.id
             }
         })
     }

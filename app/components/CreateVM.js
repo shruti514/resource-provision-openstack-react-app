@@ -70,6 +70,7 @@ class CreateVM extends React.Component {
             }
         }
         if (image&&flavor) {
+            console.log('invoking with params image:'+JSON.stringify(image)+'flavor:'+JSON.stringify(flavor)+'server'+JSON.stringify(this.state.serverName))
             CreateVMActions.createVM(image,flavor,new Date(this.state.year,this.state.month,this.state.day),this.state.serverName);
         }
     }
@@ -172,7 +173,7 @@ class CreateVM extends React.Component {
     renderImagesInput(){
         if(this.state.showImages){
 
-        alert(this.state.showImages)
+        //alert(this.state.showImages)
             var images = this.renderImageLists();
         return(
             <tr>

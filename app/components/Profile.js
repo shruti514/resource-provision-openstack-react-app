@@ -89,15 +89,13 @@ class Profile extends React.Component {
                                    </ul>
                                </li>
                                <li className="active">
-                                   <a href="instances.html"><i className="fa fa-fw fa-bars"></i>&nbsp;List Instances</a>
+                                   <Link to={'/'}><i className="fa fa-fw fa-bars"></i>&nbsp;List Instances</Link>
                                </li>
                                <li className="active">
-                                   <a href="create_instance.html"><i className="fa fa-fw fa-desktop"></i>&nbsp;Create
-                                       Instances</a>
+                                   <Link to={'/create'}><i className="fa fa-fw fa-desktop"></i>&nbsp;Create Instances</Link>
                                </li>
                                <li className="active">
-                                   <a href="resource_consumption.html"><i className="fa fa-fw fa-bar-chart"></i>&nbsp;
-                                       Resource Consumption</a>
+                                   <Link to={'/charts'}><i className="fa fa-fw fa-bar-chart"></i>&nbsp;Resource Consumption</Link>
                                </li>
                            </ul>
                        </div>
