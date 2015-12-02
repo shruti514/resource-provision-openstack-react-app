@@ -4,7 +4,7 @@ var Glance = require("openclient").getAPI('openstack', 'image', '1.0');
 var VirtualMachine = require('../models/virtualMachine');
 var Schedule = require('node-schedule');
 
-
+//console.log
 var client = new Nova({
         url: 'http://localhost:5000/v2.0/',
         debug: true
@@ -25,10 +25,9 @@ var glanceClient = new Glance({
     async: false
 });
 
-var findAllServers = (req,res,next) =>{
-
+var findAllServers = (req,res,next) => {
     var user = req.user;
-    if(user) {
+    if (user) {
         if ("Testing" === user.department) {
             var testingClient = new Nova({
                 url: 'http://localhost:5000/v2.0/',
@@ -46,8 +45,34 @@ var findAllServers = (req,res,next) =>{
                 testingClient.servers.all({
                     async: false
                 }, function (err, data) {
-                    if (err) {
-                        res.status(500).send({message: 'Error fetching Servers for Testing team account'})
+                    var toReturn = [];
+                    if (servers) {
+                        glanceClient.images.all({async: false}, function (err, images) {
+                            //var toReturn = image.name;
+
+                            servers.map((server, index)=> {
+                                var imageName = ''
+                                if (images) {
+                                    images.forEach((image, index)=> {
+                                        if (image.id == server.image.id) {
+                                            imageName = image.name;
+                                        }
+                                    })
+                                }
+                                var temp = {
+                                    id: server.id,
+                                    name: server.name,
+                                    status: server.status,
+                                    image: imageName,
+                                    flavor: server.flavor.id
+                                };
+                                toReturn.push(temp);
+                            });
+                            res.send(toReturn)
+                        });
+
+                    } else {
+                        res.send(err)
                     }
                     res.send(data);
                 });
@@ -70,45 +95,44 @@ var findAllServers = (req,res,next) =>{
                 developmentClient.servers.all({
                     async: false,
                     id: developmentClient.tenant.id
-                }, function (err, data) {
-                    if (err) {
-                        res.status(500).send({message: 'Error fetching Servers for DevelopmentTeam team account'})
-                    }
-                    res.send(data);
-                });
+                }, function (err, servers) {
+                    var toReturn = [];
+                    if (servers) {
+                        glanceClient.images.all({async: false}, function (err, images) {
+                            //var toReturn = image.name;
 
-    client.servers.all({async:false},function(err,servers){
-        var toReturn=[];
-        if(servers){
-            glanceClient.images.all({async:false}, function (err, images) {
-                //var toReturn = image.name;
+                            servers.map((server, index)=> {
+                                var imageName = ''
+                                if (images) {
+                                    images.forEach((image, index)=> {
+                                        if (image.id == server.image.id) {
+                                            imageName = image.name;
+                                        }
+                                    })
+                                }
+                                var temp = {
+                                    id: server.id,
+                                    name: server.name,
+                                    status: server.status,
+                                    image: imageName,
+                                    flavor: server.flavor.id
+                                };
+                                toReturn.push(temp);
+                            });
+                            res.send(toReturn)
+                        });
 
-                servers.map((server,index)=>{
-                    var imageName=''
-                    if(images){
-                       images.forEach((image,index)=>{
-                            if(image.id==server.image.id){
-                                imageName= image.name;
-                            }
-                        })
+                    } else {
+                        res.send(err)
                     }
-                    var temp = {
-                        id:server.id,
-                        name:server.name,
-                        status: server.status,
-                        image:imageName,
-                        flavor:server.flavor.id
-                    };
-                    toReturn.push(temp);
-                });
-                res.send(toReturn)
+                })
+                res.send(data);
             });
-
-        }else{
-            res.send(toReturn)
         }
-    })
-};
+    }
+}
+
+
 
 var findAllFlavors = (req,res,next) =>{
     client.flavors.all({async:false},function(err,flavors){
@@ -459,3 +483,4 @@ exports.findAllFlavors = findAllFlavors;
 exports.getQuotasForTenant = getQuotasForTenant;
 exports.getUsage = getUsage;
 exports.getStats = getStats;
+
