@@ -25,31 +25,37 @@ var glanceClient = new Glance({
 
 var findAllServers = (req,res,next) =>{
 
+
     client.servers.all({async:false},function(err,servers){
         var toReturn=[];
         if(servers){
-            servers.map((server,index)=>{
-                var temp = {
-                    id:server.id,
-                    name:server.name,
-                    status: server.status,
-                    image:server.image,
-                    flavor:server.flavor.id
-                };
-                for(var i = 0; i < temp.length; i++)
-                {
-                    glanceClient.images.get({id: temp[i].image}, function (err, image) {
-                        //var toReturn = image.name;
-                        temp[i].image = image.name;
-                    });
-                }
-                toReturn.push(temp)
+            glanceClient.images.all({async:false}, function (err, images) {
+                //var toReturn = image.name;
+
+                servers.map((server,index)=>{
+                    var imageName=''
+                    if(images){
+                       images.forEach((image,index)=>{
+                            if(image.id==server.image.id){
+                                imageName= image.name;
+                            }
+                        })
+                    }
+                    var temp = {
+                        id:server.id,
+                        name:server.name,
+                        status: server.status,
+                        image:imageName,
+                        flavor:server.flavor.id
+                    };
+                    toReturn.push(temp);
+                });
+                res.send(toReturn)
             });
-            res.send(toReturn);
+
         }else{
             res.send(toReturn)
         }
-
     })
 };
 
