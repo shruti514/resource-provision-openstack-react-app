@@ -20,6 +20,7 @@ class Home extends React.Component {
         HomeActions.getVMList();
        // HomeActions.getImageByID();
         HomeActions.getStats();
+        HomeActions.getUser();
     }
 
     componentWillUnmount() {
@@ -29,6 +30,33 @@ class Home extends React.Component {
     onChange(state){
         this.setState(state);
     }
+
+    getUsername(){
+        if(this.state.user){
+            return this.state.user.username
+        }else{
+            return "";
+        }
+    }
+
+
+    getCreatedInstances(){
+        if(this.state.stats && this.state.stats.instances){
+            return this.state.stats.instances.usage
+        }
+
+        return 0;
+    }
+
+    getAvailableInstances(){
+        if(this.state.stats && this.state.stats.instances){
+            console.log(JSON.stringify(this.state.stats))
+            return this.state.stats.instances.quota - this.state.stats.instances.usage;
+        }
+
+        return 0;
+    }
+
 
     renderServerLists(){
 
@@ -49,7 +77,7 @@ class Home extends React.Component {
     }
 
     render() {
-        var cnt = this.state.count;
+
         var serverList = this.renderServerLists();
         // var stats = this.state.stats;
 
@@ -134,7 +162,7 @@ class Home extends React.Component {
                                                 <i className="fa fa-bars fa-5x"></i>
                                             </div>
                                             <div className="col-xs-9 text-right">
-                                                <div className="huge">{cnt}</div>
+                                                <div className="huge">{this.getCreatedInstances()}</div>
                                                 <div>Created Instances</div>
                                             </div>
                                         </div>
@@ -157,7 +185,7 @@ class Home extends React.Component {
                                                 <i className="fa fa-desktop fa-5x"></i>
                                             </div>
                                             <div className="col-xs-9 text-right">
-                                                <div className="huge">4</div>
+                                                <div className="huge">{this.getAvailableInstances()}</div>
                                                 <div>Available Instances</div>
                                             </div>
                                         </div>

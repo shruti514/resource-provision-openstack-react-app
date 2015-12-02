@@ -17,28 +17,26 @@ class CreateVMStore{
         this.year=9999;
         this.month=99;
         this.day=99;
+        this.serverName='';
         this.showImages=false;
-        this.apps=["App_1_version_1.0","App_1_version_2.2","Other"]
+        this.apps=null
         this.appEnvMessage=null;
-        this.envDetails={
-            "App_1_version_1.0":{
-                message:"Requested VM will have Java Runtime-7",
-                image:"Cirros-with-Java-7"
-            },
-            "App_1_version_2.2":{
-                message:"Requested VM will have Java Runtime-8",
-                image:"Cirros-with-Java-8"
-            },
-            "Other":{
-                message:"Requested VM will have Hadoop Installed",
-                image:"Cirros-with-Hadoop"
-            }
-        }
+        this.envDetails=null
     }
 
+
+    onSetApps(data){
+        //alert(JSON.stringify(data))
+       this.apps=data;
+    }
+
+    onSetEnvDetails(data){
+        //alert(JSON.stringify(data))
+       this.envDetails=data;
+    }
     onCreateVMSuccess(data) {
         var message = data.message + "  Id of new Server="+JSON.stringify(data.data);
-        alert(message);
+        //alert(message);
         this.serverCreatedSuccessMessage = data.message;
         this.failureMessage =null;
     }
@@ -63,6 +61,10 @@ class CreateVMStore{
         this.flavorList = data;
     }
 
+    onUpdateServerName(data) {
+        this.serverName = data;
+    }
+
     onGetFlavorsFail(errorMessage) {
         console.log(' On Get flavors '+errorMessage);
     }
@@ -72,16 +74,17 @@ class CreateVMStore{
     }
 
     onUpdateApp(event){
-        this.app=event.target.value;
+        this.app=event.target.selectedOptions[0].text;
         if(this.app == "Other"){
             this.showImages = true;
         }
         else{
-            this.showImages=false;
+            this.showImages=false;s
         }
-        this.appEnvMessage=this.envDetails[event.target.value].message;
+        this.appEnvMessage=this.envDetails[event.target.selectedOptions[0].text].message;
+        var self = this;
         this.imageList.forEach(function(image,index){
-            if(image.name==this.envDetails[event.target.value].image){
+            if(image.name==self.envDetails[event.target.selectedOptions[0].text].image){
                 this.image= image.id
             }
         })

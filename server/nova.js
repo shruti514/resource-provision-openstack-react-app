@@ -176,6 +176,7 @@ var findAllFlavors = (req, res, next) => {
 var createServer = (req, res, next)=> {
 
     var user = req.user;
+    var serverName = req.body.serverName;
     var terminationDate = new Date(req.body.terminationDate);
     var day = terminationDate.getDate();
     var year = terminationDate.getYear();
@@ -215,7 +216,7 @@ var createServer = (req, res, next)=> {
                     }
                     console.log('called');
                     var serverData = {
-                        name: "new-server-test-team",
+                        name: serverName,
                         imageRef: req.body.imageId,
                         flavorRef: req.body.flavorId,
                         networks: ["d89ee3b1-88b4-4a70-9574-66ba7bdd062d"],
@@ -262,7 +263,7 @@ var createServer = (req, res, next)=> {
                     }
                     console.log('called');
                     var serverData = {
-                        name: "new-server-devel-team",
+                        name: serverName,
                         imageRef: req.body.imageId,
                         flavorRef: req.body.flavorId,
                         networks: ["4ff9ed40-58e0-473d-a91a-29b800aa8c8c"],

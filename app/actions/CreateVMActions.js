@@ -21,16 +21,19 @@ class CreateVMActions {
             'getUserSuccess',
             'getUserFail',
             'getStatsSuccess',
-            'getStatsFail'
+            'getStatsFail',
+            'setApps',
+            'setEnvDetails',
+            'updateServerName'
         );
     }
 
-    createVM(imageId, flavorId, terminationDate, app) {
+    createVM(imageId, flavorId, terminationDate, serverName) {
         //alert('Inside create VM method');
         $.ajax({
                 type: 'POST',
                 url: '/servers',
-                data: { imageId: imageId, flavorId: flavorId ,terminationDate:terminationDate, app:app}
+                data: { imageId: imageId, flavorId: flavorId ,terminationDate:terminationDate, serverName:serverName}
             })
             .done((data) => {
                 alert('Create vm success')

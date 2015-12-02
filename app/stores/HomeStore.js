@@ -12,10 +12,19 @@ class HomeStore{
         this.count = 0;
         this.serverList=[];
         this.stats = [];
+        this.user=null;
 
     }
     onShowCreatedInstances(data) {
         this.count = data.data;
+    }
+
+    onGetUserSuccess(user){
+        this.user = user;
+    }
+
+    onGetUserFail(errorMessage){
+        console.log(' Error :  '+errorMessage)
     }
 
     onFailToShowCreatedInstance(errorMessage) {

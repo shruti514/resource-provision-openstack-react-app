@@ -10,7 +10,9 @@ class HomeActions {
             'GetImageNameByIDSuccess',
             'FailToGetImageNameByID',
             'GetStatsSuccess',
-            'FailToGetStats'
+            'FailToGetStats',
+            'getUserSuccess',
+            'getUserFail'
         );
     }
 
@@ -61,6 +63,20 @@ class HomeActions {
                 var resp= jqXhr.responseJSON.message;
                 //alert(JSON.stringify(resp))
                 this.actions.FailToGetImageNameByID(resp);
+            });
+    }
+
+    getUser(){
+        console.log('Inside action get servers');
+        $.ajax({
+                type: 'GET',
+                url: '/userProfile'
+            })
+            .done((data) => {
+                this.actions.getUserSuccess(data);
+            })
+            .fail((jqXhr) => {
+                this.actions.getUserFail(jqXhr.responseJSON.message);
             });
     }
 

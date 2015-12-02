@@ -23,6 +23,23 @@ class CreateVM extends React.Component {
         CreateVMActions.getFlavors();
         CreateVMActions.getImages();
         CreateVMActions.getStats();
+
+        CreateVMActions.setApps(["App_1_version_1.0","App_1_version_2.2","Other"]);
+        CreateVMActions.setEnvDetails({
+            "App_1_version_1.0":{
+                message:"Requested VM will have Java Runtime-7",
+                image:"Cirros-with-Java-7"
+            },
+            "App_1_version_2.2":{
+                message:"Requested VM will have Java Runtime-8",
+                image:"Cirros-with-Java-8"
+            },
+            "Other":{
+                message:"Requested VM will have Hadoop Installed",
+                image:"Cirros-with-Hadoop"
+            }
+        });
+
     }
 
     componentWillUnmount() {
@@ -53,7 +70,7 @@ class CreateVM extends React.Component {
             }
         }
         if (image&&flavor) {
-            CreateVMActions.createVM(image,flavor,new Date(this.state.year,this.state.month,this.state.day),this.state.app);
+            CreateVMActions.createVM(image,flavor,new Date(this.state.year,this.state.month,this.state.day),this.state.serverName);
         }
     }
 
@@ -76,11 +93,15 @@ class CreateVM extends React.Component {
     }
 
     renderApps(){
-        return this.state.apps.map((app,index)=>{
-            return (
-                <option value={index}>{app}</option>
-            )
-        })
+        if(this.state.apps){
+            return this.state.apps.map((app,index)=>{
+                return (
+                    <option value={index}>{app}</option>
+                )
+            })
+        }
+        console.log(JSON.stringify(this.state.apps))
+
     }
 
     showSuccessMessage(){
@@ -149,7 +170,9 @@ class CreateVM extends React.Component {
     }
 
     renderImagesInput(){
-        if(this.state.showImages)
+        if(this.state.showImages){
+
+        alert(this.state.showImages)
             var images = this.renderImageLists();
         return(
             <tr>
@@ -161,20 +184,42 @@ class CreateVM extends React.Component {
                 </td>
             </tr>
         )
+
+        }else{
+            return(
+                <tr>
+                    <td className="td-bottom-space"> </td>
+                    <td className="td-bottom-space">
+
+                    </td>
+                </tr>
+            )
+        }
     }
 
     renderAppEnvMessage(){
-        if(this.state.appEnvMessage)
-        return(
-            <tr>
-                <td className="td-bottom-space"> <label>Env Details</label> </td>
-                <td className="td-bottom-space">
-                    <div class="alert alert-info">
-                        <strong>Runtime Env Details : </strong> {this.state.appEnvMessage}
-                    </div>
-                </td>
-            </tr>
-        )
+        if(this.state.appEnvMessage){
+            return(
+                <tr>
+                    <td className="td-bottom-space"></td>
+                    <td className="td-bottom-space">
+                        <div class="alert alert-info">
+                            <strong>Runtime Env Details : </strong> {this.state.appEnvMessage}
+                        </div>
+                    </td>
+                </tr>
+            )
+        }else{
+            return(
+                <tr>
+                    <td className="td-bottom-space"> </td>
+                    <td className="td-bottom-space">
+
+                    </td>
+                </tr>
+            )
+        }
+
     }
 
     render() {
@@ -343,8 +388,25 @@ class CreateVM extends React.Component {
 
                                                 <tr>
                                                     <td  className="td-bottom-space"><label>Server Name</label></td>
-                                                    <td  className="td-bottom-space"> <input type="text" onChange={CreateVMActions.update}/></td>
+                                                    <td  className="td-bottom-space"> <input type="text" onChange={CreateVMActions.updateServerName}/></td>
                                                 </tr>
+
+                                                <tr>
+                                                    <td className="td-bottom-space"> <label>Runtime Environment For Application</label> </td>
+                                                    <td className="td-bottom-space">
+                                                        <select name="app" onChange={CreateVMActions.updateApp}>
+                                                            {apps}
+                                                    </select>
+                                                    </td>
+                                                </tr>
+
+                                                    {this.renderAppEnvMessage()}
+
+
+
+                                                    {this.renderImagesInput()}
+
+
 
                                                 <tr>
                                                     <td className="td-bottom-space"> <label>Select Flavor</label> </td>
@@ -354,19 +416,6 @@ class CreateVM extends React.Component {
                                                         </select>
                                                     </td>
                                                 </tr>
-
-                                                <tr>
-
-                                                    <td className="td-bottom-space"> <label>Runtime Environment For Application</label> </td>
-                                                    <td className="td-bottom-space">
-                                                        <select name="app" onChange={CreateVMActions.updateApp}>
-                                                            {apps}
-                                                    </select></td>
-                                                </tr>
-
-                                                {this.renderImagesInput()}
-
-                                                {this.renderAppEnvMessage()}
 
                                                 <tr>
                                                     <td className="td-bottom-space"> <label>Termination Date </label> </td>

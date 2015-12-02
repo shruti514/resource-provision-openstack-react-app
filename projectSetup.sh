@@ -25,10 +25,10 @@ echo "Creating subnet"
 neutron subnet-create --tenant-id $tenant_id  development 10.0.0.0/29
 
 echo "Creating Ubuntu Image"
-glance image-create --name UBUNTU --disk-format=vdi --owner $tenant_id --container-format=bare --is-public false --file ~/cirros-0.3.4-x86_64-disk.img
+glance image-create --name Cirros-with-Hadoop --disk-format=vdi --owner $tenant_id --container-format=bare --is-public false --file ~/cirros-0.3.4-x86_64-disk.img
 
 echo "Creating Fedora Image "
-glance image-create --name FEDORA --disk-format=vdi --owner $tenant_id --container-format=bare --is-public false --file ~/cirros-0.3.4-x86_64-disk.img
+glance image-create --name Cirros-with-Java-7 --disk-format=vdi --owner $tenant_id --container-format=bare --is-public false --file ~/cirros-0.3.4-x86_64-disk.img
 
 
 echo "************** Setup Project for Testing team **************"
@@ -51,10 +51,10 @@ echo "Creating subnet"
 neutron subnet-create --tenant-id $tenant_id  development 20.0.0.0/29
 
 echo "Creating Cirros"
-glance image-create --name CIRROS --disk-format=vhd --owner $tenant_id --container-format=bare --is-public false --file ~/cirros-0.3.4-x86_64-disk.img
+glance image-create --name Cirros-with-Hadoop --disk-format=vhd --owner $tenant_id --container-format=bare --is-public false --file ~/cirros-0.3.4-x86_64-disk.img
 
 echo "Creating SOLARIS"
-glance image-create --name SOLARIS --disk-format=vdi --owner $tenant_id --container-format=bare --is-public false --file ~/cirros-0.3.4-x86_64-disk.img
+glance image-create --name Cirros-with-Java-7 --disk-format=vdi --owner $tenant_id --container-format=bare --is-public false --file ~/cirros-0.3.4-x86_64-disk.img
 
 
 
