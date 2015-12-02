@@ -233,13 +233,13 @@ var createServer = (req, res, next)=> {
                             res.status(500).send({message: 'Error occurred while creating an instance.Please try again.'});
                         }
 
-                        var terminate = Schedule.scheduleJob(dateToTerminate, function () {
+                        /*var terminate = Schedule.scheduleJob(dateToTerminate, function () {
                             testingClient.servers.del({
                                 tenant_id: testingClient.tenant.id,
                                 //server_id:testingClient.server.id,
                                 async: false
                             })
-                        });
+                        });*/
                         res.send({message: "Server created successfully!!", data: data});
 
                     });
@@ -280,13 +280,13 @@ var createServer = (req, res, next)=> {
                             alert('Error: after create' + JSON.stringify(err))
                             res.status(500).send({message: 'Error occurred during instance creation.Please try again.'});
                         }
-                        var terminate = Schedule.scheduleJob(dateToTerminate, function () {
+                        /*var terminate = Schedule.scheduleJob(dateToTerminate, function () {
                             developmentClient.servers.del({
                                 tenant_id: developmentClient.tenant.id,
                                 // server_id:developmentClient.server.id,
                                 async: false
                             })
-                        });
+                        });*/
                         res.send({message: "Server created successfully!!", data: data});
                     });
 

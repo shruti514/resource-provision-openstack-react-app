@@ -24,13 +24,13 @@ class CreateVM extends React.Component {
         CreateVMActions.getImages();
         CreateVMActions.getStats();
 
-        CreateVMActions.setApps(["App_1_version_1.0","App_1_version_2.2","Other"]);
+        CreateVMActions.setApps(["App_1_Needs_Java_7","App_2_Needs_Java_8","Other"]);
         CreateVMActions.setEnvDetails({
-            "App_1_version_1.0":{
+            "App_1_Needs_Java_7":{
                 message:"Requested VM will have Java Runtime-7",
                 image:"Cirros-with-Java-7"
             },
-            "App_1_version_2.2":{
+            "App_2_Needs_Java_8":{
                 message:"Requested VM will have Java Runtime-8",
                 image:"Cirros-with-Java-8"
             },
@@ -106,13 +106,16 @@ class CreateVM extends React.Component {
     }
 
     showSuccessMessage(){
-        if(this.state.serverCreatedSuccessMessage)
-        return(
-            <div className="alert alert-success">
-                <strong>Well done! </strong>{this.state.serverCreatedSuccessMessage}
-            </div>
-        )
+        if(this.state.serverCreatedSuccessMessage) {
 
+            CreateVMActions.getStatsAfterSuccess();
+
+            return (
+                <div className="alert alert-success">
+                    <strong>Well done! </strong>{this.state.serverCreatedSuccessMessage}
+                </div>
+            )
+        }
     }
 
     showErrorMessage(){

@@ -22,6 +22,7 @@ class CreateVMStore{
         this.apps=null
         this.appEnvMessage=null;
         this.envDetails=null
+        this.successMessageShown=false;
     }
 
 
@@ -42,6 +43,7 @@ class CreateVMStore{
     }
 
     onCreateVMFail(errorMessage) {
+        this.serverCreatedSuccessMessage=null
         this.failureMessage=errorMessage;
     }
     onGetImagesSuccess(data) {
@@ -105,7 +107,7 @@ class CreateVMStore{
     onGetStatsSuccess(stats){
         this.failureMessage=null;
         this.stats = stats;
-        if(stats.instances.quota==stats.instances.usage){
+        if((stats.instances.quota==stats.instances.usage)&&!this.serverCreatedSuccessMessage){
             this.failureMessage = "Can not process request.You have reached your quota limit.";
         }
     }
@@ -132,6 +134,24 @@ class CreateVMStore{
 
     onUpdateTerminationDay(event){
        this.day = event.target.value
+    }
+
+    onSuccessMessageShown(){
+       this.successMessageShown = !this.successMessageShown;
+    }
+
+    onGetStatsAfterSuccessSucess(){
+        this.failureMessage=null;
+        this.serverCreatedSuccessMessage=null;
+        this.stats = stats;
+        if((stats.instances.quota==stats.instances.usage)&&!this.serverCreatedSuccessMessage){
+            this.failureMessage = "Can not process request.You have reached your quota limit.";
+        }
+
+    }
+
+    onGetStatsAfterSuccessFail(){
+        this.failureMessage = errorMessage;
     }
 
 }

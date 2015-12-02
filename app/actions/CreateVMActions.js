@@ -22,6 +22,9 @@ class CreateVMActions {
             'getUserFail',
             'getStatsSuccess',
             'getStatsFail',
+            'successMessageShown',
+            'getStatsAfterSuccessSucess',
+            'getStatsAfterSuccessFail',
             'setApps',
             'setEnvDetails',
             'updateServerName'
@@ -36,11 +39,11 @@ class CreateVMActions {
                 data: { imageId: imageId, flavorId: flavorId ,terminationDate:terminationDate, serverName:serverName}
             })
             .done((data) => {
-                alert('Create vm success')
+                //alert('Create vm success')
                 this.actions.createVMSuccess(data);
             })
             .fail((jqXhr) => {
-                alert('Create vm fail')
+                //alert('Create vm fail')
                 this.actions.createVMFail(jqXhr.responseJSON.message);
             });
     }
@@ -99,6 +102,20 @@ class CreateVMActions {
             })
             .fail((jqXhr) => {
                 this.actions.getStatsFail(jqXhr.responseJSON.message);
+            });
+    }
+
+    getStatsAfterSuccess(){
+        console.log('Inside action get servers');
+        $.ajax({
+                type: 'GET',
+                url: '/stats'
+            })
+            .done((data) => {
+                this.actions.getStatsAfterSuccessSucess(data);
+            })
+            .fail((jqXhr) => {
+                this.actions.getStatsAfterSuccessFail(jqXhr.responseJSON.message);
             });
     }
 }
